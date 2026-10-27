@@ -31,3 +31,5 @@ jobs:
         working-directory: output/ci/github-playwright
       - run: npm test
         working-directory: output/ci/github-${{ matrix.framework }}
+      - name: Require a deliberately wrong assertion to fail
+        run: node scripts/verify-export-failure.js --demo output/ci --framework ${{ matrix.framework }}

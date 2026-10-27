@@ -2,7 +2,7 @@
   "schema": 1,
   "checkedDate": "2026-10-26 America/Los_Angeles",
   "repository": "contextqa-test-forge",
-  "scope": "Local candidate and planning brief; not published",
+  "scope": "Historical pre-upload local candidate and planning brief; later CI evidence is recorded separately below",
   "checks": {
     "node": 35
   },
@@ -14,9 +14,29 @@
   "modelUsage": "Provider wire formats tested with mocked transports; live usage unknown",
   "limitations": [
     "Real source/provider credentials not tested",
-    "New framework exports syntax/fixture tested; no browser execution in this candidate",
+    "At this pre-upload snapshot, new framework exports were syntax/fixture tested without browser execution",
     "Hosted ContextQA adapter not implemented",
     "Open-source license/public release decision pending"
   ],
-  "logoSha256": "86da68b1aaca82c28d0d7c20b933a0196ac7c83627de5be0193ad90c40afc81e"
+  "logoSha256": "86da68b1aaca82c28d0d7c20b933a0196ac7c83627de5be0193ad90c40afc81e",
+  "historicalCI": {
+    "checkedDate": "2026-10-27 America/Los_Angeles",
+    "commit": "4f6417f2badf5b83c4d6ab0bb276c0d583c0a492",
+    "runUrl": "https://github.com/contextqaai/contextqa-test-forge/actions/runs/40601770497",
+    "status": "success",
+    "scope": "Unit/generation checks and positive GitHub synthetic browser test in Playwright, Selenium and WebdriverIO",
+    "verificationMethod": "Existing private-push receipt recorded GitHub UI status; not re-fetched during this documentation update",
+    "observedUnitJobSecondsApprox": 6,
+    "observedWorkflowSecondsApprox": 52,
+    "negativeControlIncluded": false,
+    "liveSourceOrModelOrContextQACalls": false,
+    "certifiesLaterLocalChanges": false
+  },
+  "newNegativeControl": {
+    "status": "Added locally; pending its own browser execution and remote CI evidence",
+    "script": "scripts/verify-export-failure.js",
+    "localSyntaxCheck": "passed",
+    "localExistingUnitTestsPassed": 35,
+    "browserExecutionPerformedDuringDocumentationUpdate": false
+  }
 }

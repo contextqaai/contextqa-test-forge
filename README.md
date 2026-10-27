@@ -26,7 +26,7 @@ npx playwright install chromium
 npm test
 ```
 
-For `github-selenium` or `github-webdriverio`, install Chrome, then `npm install` and `npm test`. Projects pin framework versions. Exporting never runs tests; CI is configured to execute the GitHub fixture with all three frameworks after an authorized source upload; no remote run has been performed for this local candidate. A generated file is not a passing result.
+For `github-selenium` or `github-webdriverio`, install Chrome, then `npm install` and `npm test`. Projects pin framework versions. Exporting never runs tests. [CI run 40601770497](https://github.com/contextqaai/contextqa-test-forge/actions/runs/40601770497) passed the unit job and real synthetic browser tests in all three frameworks for commit `4f6417f` on October 27, 2026. That historical run did not test live source credentials, AI providers or hosted ContextQA execution. [Fresh installation, positive/negative browser controls and live acceptance steps](docs/real-testing.md) explain how to verify your current checkout. A generated file is not a passing result.
 
 ## Your real workflow
 
@@ -65,7 +65,7 @@ Output files and directories must be new. Store real source, contracts, credenti
 
 Supported steps: navigate, click, fill, native-select by value, checkbox check, exact text, visibility and exact URL assertions. CSS selector semantics and displayed text can differ across engines; verify on your app. Each test requires at least one assertion. Missing selectors, unsupported actions and changed approval hashes fail closed. Review receipts are local process controls, not cryptographic identity signatures.
 
-Read [contract schema and lifecycle](docs/contracts.md), [source APIs and keys](docs/sources.md), [AI configuration](docs/ai.md), [use cases and comparisons](docs/use-cases.md), [metrics](docs/metrics.md), [security](SECURITY.md), and [contributing](CONTRIBUTING.md).
+Read [installation and real testing](docs/real-testing.md), [contract schema and lifecycle](docs/contracts.md), [source APIs and keys](docs/sources.md), [AI configuration](docs/ai.md), [use cases and comparisons](docs/use-cases.md), [metrics](docs/metrics.md), [security](SECURITY.md), and [contributing](CONTRIBUTING.md).
 
 Related ContextQA reading: [recording browser workflows](https://contextqa.com/tutorials/no-code-test-automation-recorder/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_recorder) and [reviewing visual baselines](https://contextqa.com/blog/visual-regression-testing-ui-stability/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_visual_blog). Related repos: [browser sessions and evidence](https://github.com/contextqaai/contextqa-browser-cloud), [documentation evidence handoffs](https://github.com/contextqaai/contextqa-docs-evidence). This repo does not require either service or expose a ContextQA SaaS endpoint.
 

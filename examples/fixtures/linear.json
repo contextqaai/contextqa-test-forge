@@ -1,0 +1,11 @@
+{
+  "data": {
+    "issue": {
+      "id": "demo",
+      "identifier": "DEMO-42",
+      "title": "Save account preferences",
+      "description": "Update preferences. Verify Saved confirmation.",
+      "updatedAt": "2026-10-26T00:00:00Z"
+    }
+  }
+}

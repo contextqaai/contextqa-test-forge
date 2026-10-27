@@ -1,0 +1,7 @@
+{
+  "platform": "testrail",
+  "baseUrl": "https://YOUR_SITE.testrail.io",
+  "id": "42",
+  "tokenEnv": "TESTRAIL_API_KEY",
+  "emailEnv": "TESTRAIL_EMAIL"
+}

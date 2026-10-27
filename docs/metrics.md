@@ -1,0 +1,11 @@
+# Time, tokens and evidence
+
+`src/cli.js` prints elapsed milliseconds for that local command. `examples/demo.js` writes `metrics.json` for six synthetic source imports and 18 project exports. These measurements exclude dependency installation, browser execution, human review and AI drafting. They are hardware/cache dependent. Zero token counts are valid only with `modelCalls:0` and `usageSource:no-model-calls`.
+
+`examples/benchmark.json` is a checked-in observation from the local synthetic generation benchmark, not a performance guarantee. Reproduce with `node examples/demo.js output/your-new-run`. The full generated metrics include source/contract hashes and exported test counts. Runner timing and outcomes come from the actual test runners and CI, not the generation report. Use source IDs/hash and contract hash to correlate these records.
+
+Optional AI drafts have separate provider/model, call count, latency, content hash and provider-reported token fields. Missing provider usage stays unknown. Estimated cost is null until independently calculated from the provider's current price and actual billing categories. No keys or submitted source text are printed in console metrics; draft files themselves contain private model output and must be protected.
+
+The coding agent's total conversation token count, total engineering time, other providers' internal work and a human/Claude comparison baseline are not observable by this package. They are not reported as zero or invented. Actual end-to-end authoring and maintenance experiments require a timer, a controlled task and the real baseline logs.
+
+The checked-in benchmark only establishes that the fixture importer/exporter ran; browser execution is separately configured in CI but no remote CI run has been performed for this local candidate. Live Jira, Linear, TestRail, Xray, GitHub tenant reads and paid AI requests have not been performed by the initial fixture test. Treat connector authentication as unverified until your operator tests an authorized item.

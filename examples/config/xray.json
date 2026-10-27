@@ -1,0 +1,5 @@
+{
+  "platform": "xray",
+  "id": "10042",
+  "tokenEnv": "XRAY_BEARER_TOKEN"
+}

@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "checkedDate": "2026-10-26 America/Los_Angeles",
+  "repository": "contextqa-test-forge",
+  "scope": "Local candidate and planning brief; not published",
+  "checks": {
+    "node": 35
+  },
+  "sourceOrModelLiveCalls": 0,
+  "newRemoteCIRun": false,
+  "publishedUpdates": false,
+  "newPaidExecution": false,
+  "forbiddenOrganizationAccess": false,
+  "modelUsage": "Provider wire formats tested with mocked transports; live usage unknown",
+  "limitations": [
+    "Real source/provider credentials not tested",
+    "New framework exports syntax/fixture tested; no browser execution in this candidate",
+    "Hosted ContextQA adapter not implemented",
+    "Open-source license/public release decision pending"
+  ],
+  "logoSha256": "86da68b1aaca82c28d0d7c20b933a0196ac7c83627de5be0193ad90c40afc81e"
+}

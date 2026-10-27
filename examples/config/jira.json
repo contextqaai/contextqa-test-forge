@@ -1,0 +1,7 @@
+{
+  "platform": "jira",
+  "baseUrl": "https://YOUR_SITE.atlassian.net",
+  "id": "DEMO-42",
+  "tokenEnv": "JIRA_API_TOKEN",
+  "emailEnv": "JIRA_EMAIL"
+}

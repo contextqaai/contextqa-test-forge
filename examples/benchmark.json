@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "generatedAt": "2026-10-27T06:40:55.257Z",
+  "scenario": "Synthetic source fixtures; no customer API, model or browser execution",
+  "durationMs": 17,
+  "sources": 6,
+  "projects": 18,
+  "modelCalls": 0,
+  "inputTokens": 0,
+  "outputTokens": 0,
+  "usageSource": "no-model-calls",
+  "executed": false,
+  "note": "Local synthetic generation only; no browser execution or remote CI run is included in this measurement."
+}

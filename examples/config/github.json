@@ -1,0 +1,7 @@
+{
+  "platform": "github",
+  "owner": "YOUR_ORG",
+  "repo": "YOUR_REPO",
+  "id": "42",
+  "tokenEnv": "GITHUB_TOKEN"
+}

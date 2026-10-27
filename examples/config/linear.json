@@ -1,0 +1,6 @@
+{
+  "platform": "linear",
+  "id": "DEMO-42",
+  "tokenEnv": "LINEAR_API_KEY",
+  "oauth": false
+}

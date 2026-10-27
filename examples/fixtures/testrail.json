@@ -1,0 +1,12 @@
+{
+  "id": 42,
+  "title": "Save account preferences",
+  "custom_preconds": "Use a disposable account",
+  "custom_steps_separated": [
+    {
+      "content": "Update preferences and save",
+      "expected": "Saved confirmation visible"
+    }
+  ],
+  "updated_on": 1792972800
+}

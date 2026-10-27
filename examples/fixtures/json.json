@@ -1,0 +1,12 @@
+{
+  "id": "DEMO-42",
+  "title": "Save account preferences",
+  "description": "Save preferences and verify confirmation",
+  "revision": "v1",
+  "steps": [
+    {
+      "action": "Save preferences",
+      "expected": "Saved confirmation"
+    }
+  ]
+}

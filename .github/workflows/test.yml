@@ -1,0 +1,33 @@
+name: Validate and run synthetic exports
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - run: node examples/demo.js output/ci
+  browser:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [playwright, selenium, webdriverio]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node examples/demo.js output/ci
+      - run: npm install
+        working-directory: output/ci/github-${{ matrix.framework }}
+      - if: matrix.framework == 'playwright'
+        run: npx playwright install --with-deps chromium
+        working-directory: output/ci/github-playwright
+      - run: npm test
+        working-directory: output/ci/github-${{ matrix.framework }}

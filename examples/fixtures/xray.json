@@ -1,0 +1,14 @@
+{
+  "data": {
+    "getTest": {
+      "issueId": "10042",
+      "steps": [
+        {
+          "action": "Update preferences and save",
+          "data": "Disposable account",
+          "result": "Saved confirmation visible"
+        }
+      ]
+    }
+  }
+}

@@ -63,7 +63,7 @@ The positive control must exit **0** and report a passed browser test for each f
 2. Preserves all original actions and successful assertions, then appends a deliberately impossible text expectation on `#result`.
 3. Creates a **new** contract, source-bound synthetic approval and exported project in `negative-FRAMEWORK-*` under your demo directory. It does not edit the positive export or bypass `approve`/`exportProject`.
 4. Reuses the positive project's installed dependency directory. It performs no second install, source API request or model call.
-5. Executes the negative project, requires a nonzero runner exit and a failure location at the appended assertion. A launch/import error, timeout of the harness, unexpected pass or failure earlier in the test makes the harness fail.
+5. Executes the negative project, requires a nonzero runner exit and a precise failure location at the appended assertion or Selenium's unique static test/step timeout marker. A launch/import error, timeout of the harness, unexpected pass or failure earlier in the test makes the harness fail.
 
 Successful verification prints `negativeControlPassed:true` and exits **0**, while its child test runner must exit nonzero. Inspect the saved `contract.json`, `approval.json`, `runner.log`, `result.json` and `project/traceability.json`. This establishes that a wrong expected result can fail the synthetic check; it does not measure failure coverage on your real app.
 

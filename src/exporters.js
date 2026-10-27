@@ -3,7 +3,8 @@ import {requireApproval,navigation} from './contracts.js';
 import {sha} from './sources.js';
 const quote=JSON.stringify;
 const value=s=>s.env?`required(${quote(s.env)})`:quote(s.value);
-function renderStep(s,f) {
+export const assertionStepMarker=(testIndex,stepIndex)=>`CQA_ASSERTION_TEST_${testIndex+1}_STEP_${stepIndex+1}`;
+function renderStep(s,f,assertionMarker) {
   const v=value(s), q=quote(s.selector);
   if(f==='playwright') {
     const e=`page.locator(${q})`;
@@ -11,7 +12,7 @@ function renderStep(s,f) {
   }
   if(f==='selenium') {
     const e=`await element(${q})`;
-    return ({navigate:`await driver.get(navigation(${v}));`,click:`await (${e}).click();`,fill:`await (${e}).clear(); await (${e}).sendKeys(${v});`,select:`await new Select(${e}).selectByValue(${v});`,check:`if (!await (${e}).isSelected()) await (${e}).click();`,assertText:`await driver.wait(async () => (await (${e}).getText()) === ${v}, 10000);`,assertVisible:`await driver.wait(until.elementIsVisible(${e}), 10000);`,assertUrl:`await driver.wait(until.urlIs(${v}), 10000);`})[s.action];
+    return ({navigate:`await driver.get(navigation(${v}));`,click:`await (${e}).click();`,fill:`await (${e}).clear(); await (${e}).sendKeys(${v});`,select:`await new Select(${e}).selectByValue(${v});`,check:`if (!await (${e}).isSelected()) await (${e}).click();`,assertText:`await driver.wait(async () => (await (${e}).getText()) === ${v}, 10000, ${quote(assertionMarker)});`,assertVisible:`await driver.wait(until.elementIsVisible(${e}), 10000, ${quote(assertionMarker)});`,assertUrl:`await driver.wait(until.urlIs(${v}), 10000, ${quote(assertionMarker)});`})[s.action];
   }
   const e=`await element(${q})`;
   return ({navigate:`await browser.url(navigation(${v}));`,click:`await (${e}).click();`,fill:`await (${e}).setValue(${v});`,select:`await (${e}).selectByAttribute('value', ${v});`,check:`if (!await (${e}).isSelected()) await (${e}).click();`,assertText:`await browser.waitUntil(async () => (await (${e}).getText()) === ${v}, {timeout:10000});`,assertVisible:`await (${e}).waitForDisplayed({timeout:10000});`,assertUrl:`await browser.waitUntil(async () => (await browser.getUrl()) === ${v}, {timeout:10000});`})[s.action];
@@ -24,9 +25,9 @@ export function render(contract,framework) {
   if(framework==='selenium') header=`import test from 'node:test';\nimport {Builder, By, until} from 'selenium-webdriver';\nimport {Select} from 'selenium-webdriver/lib/select.js';\nimport chrome from 'selenium-webdriver/chrome.js';\n`+header;
   if(framework==='webdriverio') header=`import test from 'node:test';\nimport {remote} from 'webdriverio';\n`+header;
   header+=navigation.toString()+'\n';
-  return header+contract.tests.map(t=>{
+  return header+contract.tests.map((t,testIndex)=>{
     const name=quote(`${t.id}: ${t.title}`);
-    const body=t.steps.map(s=>'    '+renderStep(s,framework)).join('\n');
+    const body=t.steps.map((s,stepIndex)=>'    '+renderStep(s,framework,assertionStepMarker(testIndex,stepIndex))).join('\n');
     if(framework==='playwright') return `test(${name}, async ({page}) => {\n${body}\n});`;
     const setup=framework==='selenium'?`const options=new chrome.Options().addArguments('--headless=new');\n  const driver=await new Builder().forBrowser('chrome').setChromeOptions(options).build();\n  const element=css=>driver.wait(until.elementLocated(By.css(css)),10000);`:`const browser=await remote({logLevel:'error',capabilities:{browserName:'chrome','goog:chromeOptions':{args:['--headless=new']}}});\n  const element=async css=>{const el=await browser.$(css);await el.waitForExist({timeout:10000});return el;};`;
     const close=framework==='selenium'?'driver.quit()':'browser.deleteSession()';

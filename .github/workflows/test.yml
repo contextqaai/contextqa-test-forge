@@ -5,6 +5,7 @@ permissions:
 jobs:
   unit:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -14,6 +15,7 @@ jobs:
       - run: node examples/demo.js output/ci
   browser:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
@@ -33,3 +35,13 @@ jobs:
         working-directory: output/ci/github-${{ matrix.framework }}
       - name: Require a deliberately wrong assertion to fail
         run: node scripts/verify-export-failure.js --demo output/ci --framework ${{ matrix.framework }}
+      - name: Keep synthetic acceptance receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-${{ matrix.framework }}
+          retention-days: 3
+          path: |
+            output/ci/metrics.json
+            output/ci/negative-${{ matrix.framework }}-*/result.json
+            output/ci/negative-${{ matrix.framework }}-*/runner.log

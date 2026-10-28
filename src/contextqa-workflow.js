@@ -108,7 +108,7 @@ export async function readContextQACase(client,{caseId,stepIds=[]}) {
 
 export function portableMapping(source,mapping,reviewer) {
   if(source?.platform!=='contextqa' || mapping?.schema!==1 || mapping.sourceSha!==source.sourceSha) throw new Error('Reviewed mapping must bind the unchanged ContextQA source');
-  const contract={schema:1,sourceSha:source.sourceSha,tests:mapping.tests};
+  const contract={schema:1,sourceSha:source.sourceSha,...Object.fromEntries(['builder','businessGoal','criteria','codeStyle'].filter(key=>Object.hasOwn(mapping,key)).map(key=>[key,mapping[key]])),tests:mapping.tests};
   validate(contract);verifySource(contract,source);
   const known=new Set(source.steps.map(step=>step.id)),covered=new Set();
   if(!known.size) throw new Error('Read explicit ContextQA steps before mapping portable tests');

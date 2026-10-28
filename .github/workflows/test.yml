@@ -14,6 +14,39 @@ jobs:
       - run: npm test
       - run: node examples/demo.js output/ci
       - run: node examples/contextqa-workflow.js output/contextqa-ci
+      - run: node examples/builder-lifecycle.js output/builder-ci
+      - run: node examples/customize-agent.js output/customization-ci
+  builder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - pattern: inline
+            args: ''
+          - pattern: page-object
+            args: '--page-object'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node examples/builder-lifecycle.js output/builder ${{ matrix.args }}
+      - run: npm install --ignore-scripts --no-audit --no-fund
+        working-directory: output/builder/baseline
+      - run: npx playwright install --with-deps chromium
+        working-directory: output/builder/baseline
+      - run: node scripts/verify-builder-lifecycle.js output/builder ${{ matrix.args }}
+      - name: Retain local synthetic builder evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-builder-lifecycle-${{ matrix.pattern }}
+          retention-days: 3
+          path: |
+            output/builder/acceptance.json
+            output/builder/*.runner.json
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 5

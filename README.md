@@ -1,14 +1,27 @@
 # ContextQA Test Forge
 
-ContextQA Test Forge helps QA teams turn requirements from Jira, Linear, TestRail, Xray Cloud, GitHub Issues or JSON into reviewed automation using **ContextQA's API**. Reuse a configured ContextQA plan, author source-linked cases/steps/suites/plans with explicit review, execute only with approval, and retrieve bounded results; optionally export reviewed mappings as **Playwright, Selenium or WebdriverIO** code.
+ContextQA Test Forge helps **SDETs build their own QA agents**: turn requirements from Jira, Linear, TestRail, Xray Cloud, GitHub Issues or JSON into approved, owned **Playwright** tests, use **ContextQA's API** for managed automation, and preserve evidence when the application changes. Name your agent, choose inline or page-object code, define the business assertions, review the output and measure the result. Existing Selenium and WebdriverIO exports remain available.
+
+Anyone can use Claude or another model to draft code. The SDET supplies the judgment that makes it useful: selecting the right workflow, resolving ambiguous requirements, checking assertions, handling maintenance and measuring business outcomes. [The SDET builder journey](docs/sdet-builder.md) explains this role; [the custom-agent guide](docs/custom-agent.md) shows the implemented API building blocks and their boundaries.
 
 Built under `contextqaai` for [ContextQA](https://contextqa.com/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_overview). This is a private, runnable first release. It is not a hosted service, marketplace-certified connector, universal natural-language-to-working-test guarantee or replacement for checking application behavior.
 
 **Release status:** private candidate; an open-source license and public release are pending owner approval. Core local samples make no model or ContextQA SaaS calls. Optional AI and hosted execution use separate credentials and may incur provider charges.
 
+## Make the agent yours
+
+Start with [defaults and customization](docs/customization.md): owner/agent/version, Playwright inline or Page Object Model, indentation, bug-report fields, notification subscriptions, generated/custom directories, branch/file prefixes and semantic-version recommendations. Source watches prepare review packets; approved code can be proposed through the guarded private GitHub PR publisher. Automatic merge is off. Slack/email/webhook output is a delivery intent; no destination is connected or message sent by the formatter.
+
+```sh
+node scripts/builder-profile.js init --name 'Your name' --agent 'My QA Agent' --out forge.profile.json
+node scripts/builder-profile.js validate --profile forge.profile.json
+```
+
+Generated files contain truthful owner/reviewer attribution and criterion-to-assertion mappings; these do not change Git author identity or prove a run passed. [Run the five-scenario Playwright example](docs/builder-acceptance.md) to see real success/failure, a reviewed locator repair and a behavior change that must be escalated. [Maintenance](docs/maintenance.md) preserves original assertions; native ContextQA-to-Playwright auto-healing remains unverified. [Outcome reporting](docs/measurement.md) keeps measured time, reported tokens, unknown costs and business benefit separate.
+
 ## Start with the ContextQA workflow
 
-The [ContextQA workflow guide](docs/contextqa.md) covers API-token setup, reusable environment/data/prerequisite/browser settings, reviewed authoring, durable partial-write journals, saved-plan execution, result retrieval and complementary code exports. The bundled client catalogs all 40 operations from the supplied token API contract; its schema/transport tests are mocked, not live-account acceptance.
+The [token guide](docs/tokens.md) explains **where to obtain a token and exactly where to put it**. The [ContextQA workflow guide](docs/contextqa.md) covers reusable environment/data/prerequisite/browser settings, reviewed authoring, durable partial-write journals, saved-plan execution, result retrieval and complementary code exports. The bundled client catalogs all 40 operations from the supplied token API contract; its schema/transport tests are mocked, not live-account acceptance.
 
 ```sh
 npm test
@@ -74,13 +87,17 @@ Output files and directories must be new. Store real source, contracts, credenti
 | AI | Optional local drafting with OpenAI Responses, Anthropic Messages or compatible Chat Completions; mock-tested, not live-billed. |
 | Three automation frameworks | JavaScript projects with real assertions, waits, pinned dependencies and guaranteed cleanup for Selenium/WDIO. |
 | Review and provenance | SHA-256-bound contract approval; changed contracts require approval again; traceability per project. |
-| Maintenance | Added/changed/removed test diff; manual selector/source mapping and rerun. No automatic healing claim. |
-| Reporting | Measured import/export/demo duration and provider-reported AI usage. No fabricated coding-time or token savings. |
-| Not implemented | Bulk pagination, custom Jira fields, Xray Server/DC, source writeback, result synchronization, secret vault hosting, live browser discovery, automatic PR creation, mobile/native, file upload, shadow DOM/frame mappings or arbitrary code steps. |
+| Builder customization | Self-declared owner/agent/version, business criteria/assertions, Playwright inline/POM and indentation; generated/custom directories remain separate. |
+| Maintenance | Classify failures; review selector-only proposals, preserve intent/assertions/native mappings and require rerun. No automatic native healing claim. |
+| Source subscriptions and GitHub | Explicit watch lists, manual/dispatch/scheduled workflow generator, source-hash review gate and private PR publisher with durable journals. Mock-tested publication; subscriptions are not installed by generating a file. |
+| Reporting | Measured local durations, provider-reported AI usage, baseline/denominator-aware outcome summaries and customizable bug reports. Notifications prepare delivery intents only. |
+| Not implemented | Bulk pagination, custom Jira fields, Xray Server/DC, source writeback, result synchronization, secret vault hosting, live browser discovery, mobile/native, file upload, shadow DOM/frame mappings or arbitrary code steps. |
 
 Supported steps: navigate, click, fill, native-select by value, checkbox check, exact text, visibility and exact URL assertions. CSS selector semantics and displayed text can differ across engines; verify on your app. Each test requires at least one assertion. Missing selectors, unsupported actions and changed approval hashes fail closed. Review receipts are local process controls, not cryptographic identity signatures.
 
 Read [installation and real testing](docs/real-testing.md), [contract schema and lifecycle](docs/contracts.md), [source APIs and keys](docs/sources.md), [AI configuration](docs/ai.md), [use cases and comparisons](docs/use-cases.md), [metrics](docs/metrics.md), [security](SECURITY.md), and [contributing](CONTRIBUTING.md).
+
+New builder documentation: [customize and subscribe](docs/customization.md) · [ContextQA/token setup](docs/tokens.md) · [custom agent tutorial](docs/custom-agent.md) · [real local lifecycle](docs/builder-acceptance.md) · [maintenance design](docs/maintenance.md) · [business outcome measurement](docs/measurement.md) · [implementation status](docs/builder-status.md).
 
 Related ContextQA reading: [recording browser workflows](https://contextqa.com/tutorials/no-code-test-automation-recorder/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_recorder) and [reviewing visual baselines](https://contextqa.com/blog/visual-regression-testing-ui-stability/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_visual_blog). Related repos: [browser sessions and evidence](https://github.com/contextqaai/contextqa-browser-cloud), [documentation evidence handoffs](https://github.com/contextqaai/contextqa-docs-evidence). This repo calls the existing ContextQA cloud API; it does not deploy a new hosted endpoint.
 

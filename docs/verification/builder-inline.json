@@ -1,0 +1,64 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-10-28T02:53:56.074Z",
+  "executionBackend": "local-playwright-synthetic",
+  "browserChannel": "chrome",
+  "checks": [
+    {
+      "name": "baseline",
+      "expected": "passed",
+      "runnerExitCode": 0,
+      "accepted": true,
+      "durationMs": 7119,
+      "contractSha": "ca1d4b8793404ed6978ff7556c5ef27be06bcc9c3cdc6e80f7dd5549793238d1",
+      "report": "baseline.runner.json"
+    },
+    {
+      "name": "negative-rule",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2401,
+      "contractSha": "125459c0e3cf683f4871e72227bc4ef2e90fc65fa964833d80a1816b0f8008f5",
+      "report": "negative-rule.runner.json"
+    },
+    {
+      "name": "stale-locator",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2318,
+      "contractSha": "ca1d4b8793404ed6978ff7556c5ef27be06bcc9c3cdc6e80f7dd5549793238d1",
+      "report": "stale-locator.runner.json"
+    },
+    {
+      "name": "repaired",
+      "expected": "passed",
+      "runnerExitCode": 0,
+      "accepted": true,
+      "durationMs": 1063,
+      "contractSha": "50bf6f7f6a05f41ce6621ef74f68402544d6b11d7a4631f39b200bc2562f6d9a",
+      "report": "repaired.runner.json"
+    },
+    {
+      "name": "behavior-defect",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2202,
+      "contractSha": "50bf6f7f6a05f41ce6621ef74f68402544d6b11d7a4631f39b200bc2562f6d9a",
+      "report": "behavior-defect.runner.json"
+    }
+  ],
+  "behaviorWeakeningBlocked": true,
+  "totalExecutionDurationMs": 15110,
+  "generationDurationMs": 9,
+  "reviewTimeMs": null,
+  "modelCalls": 0,
+  "inputTokens": 0,
+  "outputTokens": 0,
+  "usageSource": "no-model-calls",
+  "contextqaCalls": 0,
+  "contextqaHealingVerified": false,
+  "businessOutcome": "not-measured"
+}

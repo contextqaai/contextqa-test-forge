@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "checkedAt": "2026-10-28T02:57:22.025Z",
+  "executionBackend": "local-playwright-synthetic",
+  "browserChannel": "chrome",
+  "pattern": "page-object",
+  "checks": [
+    {
+      "name": "baseline",
+      "expected": "passed",
+      "runnerExitCode": 0,
+      "accepted": true,
+      "durationMs": 1559,
+      "contractSha": "87282f0d5324cf625eb87a1af0e2d9ceadbf260f35c7b1981603b81c9cec2077",
+      "verifiedCodeFiles": [
+        "tests.spec.js",
+        "pages/workflow-1.js"
+      ],
+      "report": "baseline.runner.json"
+    },
+    {
+      "name": "negative-rule",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2152,
+      "contractSha": "aa891e1ede20b1c588934fb85f9a2bd1bb788a44cdb5387d4946c38a8a855adf",
+      "verifiedCodeFiles": [
+        "tests.spec.js",
+        "pages/workflow-1.js"
+      ],
+      "report": "negative-rule.runner.json"
+    },
+    {
+      "name": "stale-locator",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2148,
+      "contractSha": "87282f0d5324cf625eb87a1af0e2d9ceadbf260f35c7b1981603b81c9cec2077",
+      "verifiedCodeFiles": [
+        "tests.spec.js",
+        "pages/workflow-1.js"
+      ],
+      "report": "stale-locator.runner.json"
+    },
+    {
+      "name": "repaired",
+      "expected": "passed",
+      "runnerExitCode": 0,
+      "accepted": true,
+      "durationMs": 1216,
+      "contractSha": "da8da6d6e8db8c90021d15a428c43ae40fbc1f82049d22d05c0021c4737d1b92",
+      "verifiedCodeFiles": [
+        "tests.spec.js",
+        "pages/workflow-1.js"
+      ],
+      "report": "repaired.runner.json"
+    },
+    {
+      "name": "behavior-defect",
+      "expected": "failed",
+      "runnerExitCode": 1,
+      "accepted": true,
+      "durationMs": 2174,
+      "contractSha": "da8da6d6e8db8c90021d15a428c43ae40fbc1f82049d22d05c0021c4737d1b92",
+      "verifiedCodeFiles": [
+        "tests.spec.js",
+        "pages/workflow-1.js"
+      ],
+      "report": "behavior-defect.runner.json"
+    }
+  ],
+  "behaviorWeakeningBlocked": true,
+  "totalExecutionDurationMs": 9259,
+  "generationDurationMs": 10,
+  "reviewTimeMs": null,
+  "modelCalls": 0,
+  "inputTokens": 0,
+  "outputTokens": 0,
+  "usageSource": "no-model-calls",
+  "contextqaCalls": 0,
+  "contextqaHealingVerified": false,
+  "businessOutcome": "not-measured"
+}

@@ -6,6 +6,8 @@ ContextQA is the primary automation service for this workflow. Reuse an existing
 
 ## Account and keys
 
+Follow the complete [token setup and read-only connection check](tokens.md) for blank configuration, exact scopes, separate provider/source keys and troubleshooting. Use [builder profiles](customization.md) for code/notification/GitHub preferences; saved native settings remain in the distinct ContextQA project profile.
+
 The supplied OpenAPI contract identifies `https://server.contextqa.com` as the cloud base. A superadmin obtains a token in ContextQA **Settings → API tokens**. Set `CONTEXTQA_API_TOKEN` through your secret manager or an owner-only ignored environment file. The bearer token identifies the tenant. Do not put keys in arguments, issue text, bundles, screenshots or generated scripts. Do not append UTMs to API/auth/artifact URLs.
 
 Read scopes and write/execute scopes differ. Ask the account administrator for the minimum selected case/step/plan/result permissions. Signup entitlement, evaluation credits and pricing remain unverified; the tool does not sign up, initiate Google SSO or manage tokens.

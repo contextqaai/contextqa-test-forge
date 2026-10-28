@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "synthetic-example",
+  "experiment": {
+    "id": "synthetic-approval-workflow",
+    "title": "Illustrative measurements only — not a ContextQA customer result",
+    "businessGoal": "Make a release decision about an agreed approval workflow using inspectable assertions.",
+    "matchedTaskAndScope": true,
+    "comparabilityNotes": "Fictional matched tasks and seeded builds; no real experiment, provider request or business benefit is established."
+  },
+  "baseline": {
+    "window": {"start": "2026-10-01T00:00:00Z", "end": "2026-10-08T00:00:00Z"},
+    "attemptsComplete": true,
+    "attempts": [
+      {"id":"baseline-1","workflowId":"approval","requirementId":"approve-v1","buildId":"synthetic-a","attempted":true,"assertionOutcome":"passed","reviewedAt":"2026-10-01T09:00:00Z","verifiedAt":"2026-10-01T10:00:00Z","releaseDecisionAt":"2026-10-01T10:10:00Z","evidenceRefs":["private/baseline-assertions.json"],"authoringMinutes":40,"reviewMinutes":10,"maintenanceMinutes":0,"generationMs":0,"executionMs":30000,"unchangedBuild":true,"falseFailure":false},
+      {"id":"baseline-2","workflowId":"approval","requirementId":"reject-v1","changeId":"label-change","buildId":"synthetic-b","attempted":true,"assertionOutcome":"passed","reviewedAt":"2026-10-02T09:00:00Z","verifiedAt":"2026-10-02T10:30:00Z","releaseDecisionAt":"2026-10-02T10:45:00Z","evidenceRefs":["private/baseline-maintenance.json"],"authoringMinutes":50,"reviewMinutes":15,"maintenanceMinutes":20,"generationMs":0,"executionMs":50000,"unchangedBuild":true,"falseFailure":false}
+    ],
+    "coverage": {"agreedCriticalCriteria":2,"mappedCriticalCriteria":2,"verifiedCriticalCriteria":2,"evidenceRefs":["private/baseline-coverage.json"]},
+    "repairs": [],
+    "modelUsageComplete": true,
+    "modelUsage": [],
+    "executionCostComplete": false,
+    "executionCosts": []
+  },
+  "current": {
+    "window": {"start":"2026-10-08T00:00:00Z","end":"2026-10-15T00:00:00Z"},
+    "attemptsComplete": true,
+    "attempts": [
+      {"id":"current-1","workflowId":"approval","requirementId":"approve-v1","buildId":"synthetic-c","attempted":true,"assertionOutcome":"passed","reviewedAt":"2026-10-08T09:00:00Z","verifiedAt":"2026-10-08T09:30:00Z","releaseDecisionAt":"2026-10-08T09:40:00Z","evidenceRefs":["private/current-assertions.json"],"authoringMinutes":15,"reviewMinutes":8,"maintenanceMinutes":0,"generationMs":500,"executionMs":40000,"unchangedBuild":true,"falseFailure":false},
+      {"id":"current-2","workflowId":"approval","requirementId":"reject-v1","changeId":"label-change","buildId":"synthetic-d","attempted":true,"assertionOutcome":"failed","reviewedAt":"2026-10-09T09:00:00Z","verifiedAt":null,"releaseDecisionAt":null,"evidenceRefs":["private/false-failure-review.json"],"authoringMinutes":0,"reviewMinutes":3,"maintenanceMinutes":12,"generationMs":100,"executionMs":25000,"unchangedBuild":true,"falseFailure":true},
+      {"id":"current-3","workflowId":"approval","requirementId":"reject-v1","changeId":"label-change","buildId":"synthetic-d","retryOf":"current-2","attempted":true,"assertionOutcome":"passed","reviewedAt":"2026-10-09T09:00:00Z","verifiedAt":"2026-10-09T10:00:00Z","releaseDecisionAt":"2026-10-09T10:10:00Z","evidenceRefs":["private/revalidation.json"],"authoringMinutes":0,"reviewMinutes":5,"maintenanceMinutes":10,"generationMs":100,"executionMs":30000,"unchangedBuild":true,"falseFailure":false}
+    ],
+    "coverage": {"agreedCriticalCriteria":2,"mappedCriticalCriteria":2,"verifiedCriticalCriteria":2,"evidenceRefs":["private/current-coverage.json"]},
+    "repairs": [
+      {"id":"repair-1","workflowId":"approval","accepted":true,"applied":true,"revalidated":true,"rolledBack":false,"evidenceRefs":["private/repair-review.json","private/revalidation.json"]},
+      {"id":"repair-2","workflowId":"approval","accepted":null,"applied":null,"revalidated":null,"rolledBack":null,"evidenceRefs":[]}
+    ],
+    "modelUsageComplete": true,
+    "modelUsage": [
+      {"id":"draft-1","provider":"synthetic-provider","model":"synthetic-model","usageSource":"provider-reported","inputTokens":800,"outputTokens":300,"cachedInputTokens":0,"cost":{"id":"model-cost-1","amount":0.02,"currency":"USD","source":"provider-reported","evidenceRefs":["private/synthetic-usage.json"]},"evidenceRefs":["private/synthetic-usage.json"]},
+      {"id":"draft-2","provider":"synthetic-provider","model":"synthetic-model","usageSource":"unavailable","inputTokens":null,"outputTokens":null,"cachedInputTokens":null,"cost":null,"evidenceRefs":[]}
+    ],
+    "executionCostComplete": false,
+    "executionCosts": [{"id":"execution-cost-unknown","amount":null,"currency":null,"source":"unavailable","evidenceRefs":[]}]
+  }
+}

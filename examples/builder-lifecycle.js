@@ -1,5 +1,6 @@
 // Repository-owned fixture. Scripted review labels must never approve customer requirements.
 import {mkdir, writeFile} from 'node:fs/promises';
+import {dirname, resolve} from 'node:path';
 import {performance} from 'node:perf_hooks';
 import {sha} from '../src/sources.js';
 import {approve} from '../src/contracts.js';
@@ -11,6 +12,7 @@ const args = process.argv.slice(2);
 const out = args[0] && !args[0].startsWith('--') ? args.shift() : `output/builder-${Date.now()}`;
 if (args.length > 1 || args.length === 1 && args[0] !== '--page-object') throw new Error('Use a new output directory and optional --page-object');
 const pattern = args.includes('--page-object') ? 'page-object' : 'inline';
+await mkdir(dirname(resolve(out)), {recursive: true, mode: 0o700});
 await mkdir(out, {mode: 0o700});
 const save = (name, value) => writeFile(`${out}/${name}.json`, JSON.stringify(value, null, 2) + '\n', {flag: 'wx', mode: 0o600});
 const {source, before:contract, after, apps} = builderFixture({pattern});

@@ -1,11 +1,13 @@
 // Offline personalization example; no model/API/browser calls or notifications are sent.
 import {mkdir, writeFile} from 'node:fs/promises';
+import {dirname, resolve} from 'node:path';
 import {builderFixture} from './builder-fixture.js';
 import {defaultProfile, validateProfile, recommendVersion} from '../src/profile.js';
 import {approve} from '../src/contracts.js';
 import {planSync, subscriptionWorkflow} from '../src/sync.js';
 import {renderBugReport, notificationIntent} from '../src/reports.js';
 const out = process.argv[2] ?? `output/personalized-${Date.now()}`;
+await mkdir(dirname(resolve(out)), {recursive: true, mode: 0o700});
 await mkdir(out, {mode: 0o700});
 const save = (name, value) => writeFile(`${out}/${name}`, typeof value === 'string' ? value : JSON.stringify(value, null, 2) + '\n', {flag: 'wx', mode: 0o600});
 const {source, before: contract} = builderFixture({pattern: 'page-object', indent: 4});

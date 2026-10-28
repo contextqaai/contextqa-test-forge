@@ -79,9 +79,10 @@ test('all HTML bytes are bound, including network techniques outside the former 
 test('inline and page-object generator outputs match the same guard without launching browsers or using any account', async t => {
   const root=await mkdtemp(join(tmpdir(),'forge-fixture-'));t.after(()=>rm(root,{recursive:true,force:true}));
   for(const pattern of ['inline','page-object']) {
-    const out=join(root,pattern),pageObject=pattern==='page-object';
+    const out=join(root,pattern,'missing-parent','sample'),pageObject=pattern==='page-object';
     const result=await promisify(execFile)(process.execPath,['examples/builder-lifecycle.js',out,...(pageObject?['--page-object']:[])],{cwd:process.cwd()});
     assert.equal(JSON.parse(result.stdout).executed,false);assert.equal(JSON.parse(result.stdout).pattern,pattern);
+    await assert.rejects(promisify(execFile)(process.execPath,['examples/builder-lifecycle.js',out,...(pageObject?['--page-object']:[])],{cwd:process.cwd()}));
     const input={};for(const name of ['manifest','source','before','after']) input[name]=JSON.parse(await readFile(join(out,`${name}.json`),'utf8'));
     input.apps=Object.fromEntries(await Promise.all(['app-before','app-after','app-defect'].map(async name=>[name,await readFile(join(out,`${name}.html`),'utf8')])));
     assert.equal(assertBuilderFixture(input,{pageObject}),true);
@@ -92,6 +93,8 @@ test('inline and page-object generator outputs match the same guard without laun
       assert.deepEqual(await assertBuilderProjectFiles(join(out,name),contract,traceability.review),pageObject?['tests.spec.js','pages/workflow-1.js']:['tests.spec.js']);
     }
   }
+  const customized = await promisify(execFile)(process.execPath, ['examples/customize-agent.js', join(root, 'new-parent', 'customized')], {cwd: process.cwd()});
+  assert.equal(JSON.parse(customized.stdout).externalRequests, 0);
 });
 
 test('page-object verification rejects changed, extra, missing and symlinked page code before execution', async t => {

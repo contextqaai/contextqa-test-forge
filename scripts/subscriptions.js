@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import {readFile, writeFile, mkdir, stat} from 'node:fs/promises';
+import {dirname, resolve} from 'node:path';
 import {fetchSource} from '../src/sources.js';
 import {ContextQAClient} from '../src/contextqa.js';
 import {readContextQACase} from '../src/contextqa-workflow.js';
@@ -7,7 +8,7 @@ import {prepareSubscriptions, assertSubscriptionCheckout} from '../src/subscript
 const args = process.argv.slice(2), option = key => args.includes(`--${key}`) ? args[args.indexOf(`--${key}`) + 1] : undefined;
 const loadJson = async (path, {optional = false} = {}) => { try { if ((await stat(path)).size > 1_000_000) throw new Error('Input too large'); return JSON.parse(await readFile(path, 'utf8')); } catch (error) { if (optional && error.code === 'ENOENT') return null; throw error; } };
 try {
-  const out = option('out'); await mkdir(out, {mode: 0o700});
+  const out = option('out'); await mkdir(dirname(resolve(out)), {recursive: true, mode: 0o700}); await mkdir(out, {mode: 0o700});
   const profile = await loadJson(option('profile')); assertSubscriptionCheckout(profile);
   let client;
   const results = await prepareSubscriptions({profile, watch: await loadJson(option('watch')), loadJson, readSource: async config => {

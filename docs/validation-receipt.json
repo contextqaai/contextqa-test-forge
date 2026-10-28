@@ -15,7 +15,7 @@
   "limitations": [
     "Real source/provider credentials not tested",
     "At this pre-upload snapshot, new framework exports were syntax/fixture tested without browser execution",
-    "Hosted ContextQA adapter not implemented",
+    "At the historical pre-upload snapshot the hosted ContextQA adapter was not implemented",
     "Open-source license/public release decision pending"
   ],
   "logoSha256": "86da68b1aaca82c28d0d7c20b933a0196ac7c83627de5be0193ad90c40afc81e",
@@ -38,5 +38,37 @@
     "localSyntaxCheck": "passed",
     "localExistingUnitTestsPassed": 35,
     "browserExecutionPerformedDuringDocumentationUpdate": false
+  },
+  "contextqaAPIImplementation": {
+    "date": "2026-10-27 America/Los_Angeles",
+    "status": "Implemented and mock-tested; live tenant and billing acceptance pending",
+    "catalogOperations": 40,
+    "authoringOperations": 9,
+    "exampleMockRequests": 11,
+    "exampleNetworkCalls": 0,
+    "features": [
+      "source-bound raw authoring bundles",
+      "preflight DTO validation",
+      "durable partial-write journal without replay",
+      "existing saved-project configuration checks and execution",
+      "explicit case/step reads and reviewed portable mappings"
+    ],
+    "syntheticSettings": [
+      "environment and workspace IDs",
+      "data profiles and prerequisites",
+      "suite memberships",
+      "cross-browser/parallel/native retry settings"
+    ],
+    "liveCallsPerformed": false
+  },
+  "currentContextQAAdapterChecks": {
+    "date": "2026-10-27 America/Los_Angeles",
+    "nodeTestsPassed": 64,
+    "liveContextQACalls": 0,
+    "transport": "injected synthetic transport; optional browser proxy tests use loopback",
+    "projectPreflight": "environment/data/prerequisite/suite/browser/parallel drift guards passed",
+    "nonIdempotentStart": "exclusive fsynced intent and run ID; no hidden retry",
+    "sourceContractOperations": 40,
+    "liveAcceptance": "pending"
   }
 }

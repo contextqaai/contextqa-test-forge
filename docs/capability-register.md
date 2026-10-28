@@ -81,6 +81,8 @@ These are validation/backlog gates only. This audit did not perform them or gran
 
 ## Local implementation snapshot for contextqa-test-forge
 
-Primary QA/manual-backlog entry point. Current code produces portable local tests; hosted ContextQA execution is a gated adapter backlog, not an implemented path.
+Primary QA/manual-backlog entry point. **Implementation update, October 27:** `src/contextqa.js`/the generated operation catalog provide all 40 documented token operations with schema validation, fixed cloud origin, write/execute gates, request bounds and journaled saved-plan execution. `src/contextqa-project.js` checks a reviewed existing plan/case/suite/step profile before execution. `src/contextqa-workflow.js` adds source-bound raw authoring bundles, no-replay partial-write journals and explicit ContextQA case/step imports. Reviewed portable mappings are complementary; selectors are not inferred from native action IDs. See [ContextQA workflow](contextqa.md) and [shared platform settings](contextqa-platform.md).
+
+Status: **verified implementation/fixture behavior; live tenant and billing untested**. `examples/contextqa-workflow.js` uses mocked transport and synthetic settings, never the real service. No environment/data-profile/device-discovery CRUD is implied by fields in authoring DTOs. Existing API reference rows above describe the supplied service contract, not live acceptance results.
 
 The initial fixture/transport checks are local evidence, not live API verification. BYOK drafting supports OpenAI, Anthropic and compatible Chat Completions protocols with explicit data-sharing approval. No live model credential/billing request was performed. Refer to the current validation receipt for exact test counts; do not infer a passing remote CI run from a workflow file.

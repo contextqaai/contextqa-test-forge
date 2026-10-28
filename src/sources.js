@@ -8,7 +8,7 @@ function text(value) {
   return '';
 }
 export function normalize(platform, raw, locator = null) {
-  let id,title,description,revision,steps=[];
+  let id,title,description,revision,steps=[],contextqa;
   if(platform==='github') {
     if(raw.pull_request) throw new Error('Pull requests are not test requirements');
     id=String(raw.number ?? ''); title=raw.title; description=raw.body || ''; revision=raw.updated_at;
@@ -26,11 +26,17 @@ export function normalize(platform, raw, locator = null) {
     const item=raw.data?.getTest ?? raw;
     id=item.issueId; title=item.title || `Xray test ${id}`; description=item.gherkin || ''; revision=item.lastModified;
     steps=(item.steps || []).map(s=>({action:s.action || '',data:s.data || '',expected:s.result || ''}));
+  } else if(platform==='contextqa') {
+    const item=raw.case;
+    id=String(item?.id ?? '');title=item?.name;description=item?.description || '';revision=item?.updatedDate;
+    const settings=['workspaceVersionId','environmentId','testDataId','isDataDriven','prerequisiteTestCaseIds','url','type'];
+    contextqa={caseSettings:Object.fromEntries(settings.filter(key=>Object.hasOwn(item || {},key)).map(key=>[key,item[key]]))};
+    steps=(raw.steps || []).map(s=>({id:String(s.id),position:s.position ?? null,action:s.description || s.actionName || s.action || '',expected:s.exceptedResult || '',contextqa:{action:s.action ?? null,type:s.type ?? null,naturalTextActionId:s.naturalTextActionId ?? null,elementId:s.elementId ?? null,element:s.element ?? null,testData:s.testData ?? null,environmentId:s.environmentId ?? null,testDataId:s.testDataId ?? null,forLoopTestDataId:s.forLoopTestDataId ?? null,preRequisiteStepId:s.preRequisiteStepId ?? null}}));
   } else if(platform==='json') {
     id=raw.id;title=raw.title;description=raw.description || '';revision=raw.revision;steps=raw.steps || [];
-  } else throw new Error('Supported sources: github, jira, linear, testrail, xray, json');
+  } else throw new Error('Supported sources: contextqa, github, jira, linear, testrail, xray, json');
   if(!id || typeof title!=='string' || !title.trim()) throw new Error('Source requires a stable ID and title');
-  const result={schema:1,platform,id:String(id),title,description,revision:revision ?? null,steps,locator};
+  const result={schema:1,platform,id:String(id),title,description,revision:revision ?? null,steps,locator,...(contextqa?{contextqa}:{})};
   if(Buffer.byteLength(JSON.stringify(result))>256_000) throw new Error('Source exceeds 256 KB');
   return {...result,sourceSha:sha(result)};
 }

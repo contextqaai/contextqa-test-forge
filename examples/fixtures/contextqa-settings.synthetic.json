@@ -1,0 +1,14 @@
+{
+  "notice": "Every ID here is synthetic mock-transport data. Copy actual reviewed configuration from your ContextQA account; never submit this fixture live.",
+  "workspaceVersionId": 42,
+  "environmentId": 51,
+  "testDataId": 61,
+  "forLoopTestDataId": 62,
+  "prerequisiteCaseId": 71,
+  "prerequisiteStepId": 72,
+  "prerequisiteSuiteId": 73,
+  "devices": [
+    {"browser": "chrome", "platformBrowserVersionId": 81, "platformOsVersionId": 91, "platformScreenResolutionId": 101, "deviceId": 111, "agentId": 121},
+    {"browser": "firefox", "platformBrowserVersionId": 82, "platformOsVersionId": 91, "platformScreenResolutionId": 101, "deviceId": 112, "agentId": 121}
+  ]
+}

@@ -4,6 +4,7 @@ Adapters read one explicit item only. They do not mutate the source, traverse li
 
 | Platform | Endpoint used | Credential and setup |
 |---|---|---|
+| ContextQA | `GET https://server.contextqa.com/test_cases/ID` and explicitly selected `/test_steps/ID` through `scripts/contextqa-workflow.js read-case` | `CONTEXTQA_API_TOKEN`; authorized superadmin obtains it in ContextQA Settings → API tokens. Separate case/step read scopes. See [primary API workflow](contextqa.md). Explicit parent checks; no native element/NLP-to-selector inference. |
 | GitHub Issues | `GET https://api.github.com/repos/OWNER/REPO/issues/NUMBER` | Fine-grained personal access token with read access to Issues on the selected repository; set `GITHUB_TOKEN`. Pull requests returned by the issue API are rejected. |
 | Jira Cloud | `GET https://SITE/rest/api/3/issue/KEY?fields=summary,description,updated` | Classic Atlassian API token plus account email, Basic authentication; set `JIRA_API_TOKEN` and `JIRA_EMAIL`. Requires Browse Projects and applicable issue security access. Scoped token gateway URLs and Server/DC are not supported by this adapter. |
 | Linear | `POST https://api.linear.app/graphql`, query `issue(id:...)` | Personal API key in Authorization, `LINEAR_API_KEY`. For an existing OAuth access token use `oauth:true` to add Bearer. No OAuth login flow is implemented. |

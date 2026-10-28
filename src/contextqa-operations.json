@@ -1,0 +1,2690 @@
+{
+  "schemaVersion": 1,
+  "source": "User-supplied api-tokens.yaml; OpenAPI 3.0.3 v1.0.0; not live-verified",
+  "sourceSha256": "e8b3afefcb6eba18172081a8daad8f962cb28a95a284a33acb3369ff928531fa",
+  "operations": [
+    {
+      "operationId": "getMediaUploadUrl",
+      "method": "GET",
+      "path": "/api/public/storage_config/presigned_url",
+      "permission": "MEDIA_UPLOAD",
+      "parameters": [
+        {
+          "name": "file_name",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "write"
+    },
+    {
+      "operationId": "listSystemAudits",
+      "method": "GET",
+      "path": "/api/v1/system-audits",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getDailyActivityTrends",
+      "method": "GET",
+      "path": "/api/v1/system-audits/daily-activity-trends",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "endDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "End of the date range."
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getSourceDistribution",
+      "method": "GET",
+      "path": "/api/v1/system-audits/source-distribution",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "endDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "End of the date range."
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getSourceSummary",
+      "method": "GET",
+      "path": "/api/v1/system-audits/source-summary",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getActionCountsByDate",
+      "method": "GET",
+      "path": "/api/v1/system-audits/stacked-bar-chart",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "endDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "End of the date range."
+        },
+        {
+          "name": "groupBy",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "daily"
+          }
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getAuditActionSummary",
+      "method": "GET",
+      "path": "/api/v1/system-audits/summary/actions",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "endDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "End of the date range."
+        },
+        {
+          "name": "action",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "groupBy",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "daily"
+          }
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getAuditDetails",
+      "method": "GET",
+      "path": "/api/v1/system-audits/summary/details",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "endDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "End of the date range."
+        },
+        {
+          "name": "action",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "user",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getAuditDetailsCount",
+      "method": "GET",
+      "path": "/api/v1/system-audits/summary/details-count",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "source",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "startDate",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Start of the date range."
+        },
+        {
+          "name": "action",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "user",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "workspaceVersionId",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getTotalActionsSummary",
+      "method": "GET",
+      "path": "/api/v1/system-audits/total-actions-summary",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getSystemAudit",
+      "method": "GET",
+      "path": "/api/v1/system-audits/{id}",
+      "permission": "VIEW_SYSTEM_AUDIT",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "listTestCaseResults",
+      "method": "GET",
+      "path": "/test_case_results",
+      "permission": "TEST_CASE_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getTestCaseResult",
+      "method": "GET",
+      "path": "/test_case_results/{id}",
+      "permission": "TEST_CASE_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "listTestCases",
+      "method": "GET",
+      "path": "/test_cases",
+      "permission": "TEST_CASES_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "createTestCase",
+      "method": "POST",
+      "path": "/test_cases",
+      "permission": "TEST_CASES_WRITE",
+      "parameters": [],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestCaseRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "getTestCase",
+      "method": "GET",
+      "path": "/test_cases/{id}",
+      "permission": "TEST_CASES_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "updateTestCase",
+      "method": "PUT",
+      "path": "/test_cases/{id}",
+      "permission": "TEST_CASES_WRITE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestCaseRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "patchTestCase",
+      "method": "PATCH",
+      "path": "/test_cases/{id}",
+      "permission": "TEST_CASES_WRITE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestCaseRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "listTestPlanResults",
+      "method": "GET",
+      "path": "/test_plan_results",
+      "permission": "TEST_PLAN_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getTestPlanResult",
+      "method": "GET",
+      "path": "/test_plan_results/{id}",
+      "permission": "TEST_PLAN_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getRunSummary",
+      "method": "GET",
+      "path": "/test_plan_results/{id}/results",
+      "permission": "TEST_PLAN_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "listTestPlans",
+      "method": "GET",
+      "path": "/test_plans",
+      "permission": "TEST_PLANS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "createTestPlan",
+      "method": "POST",
+      "path": "/test_plans",
+      "permission": "TEST_PLANS_WRITE",
+      "parameters": [],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestPlanRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "getBuildUploadUrl",
+      "method": "GET",
+      "path": "/test_plans/build_upload_url",
+      "permission": "TEST_PLAN_EXECUTE",
+      "parameters": [
+        {
+          "name": "file_name",
+          "in": "query",
+          "required": true,
+          "schema": {
+            "type": "string"
+          },
+          "example": "app-release.apk"
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "write"
+    },
+    {
+      "operationId": "getTestPlan",
+      "method": "GET",
+      "path": "/test_plans/{id}",
+      "permission": "TEST_PLANS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "updateTestPlan",
+      "method": "PUT",
+      "path": "/test_plans/{id}",
+      "permission": "TEST_PLANS_WRITE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestPlanRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "triggerRun",
+      "method": "GET",
+      "path": "/test_plans/{id}/execution",
+      "permission": "TEST_PLAN_EXECUTE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        {
+          "name": "environment",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Environment to run against; empty uses the plan default."
+        },
+        {
+          "name": "apk_build_url",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "Android build: a URL, or the `key` from `/test_plans/build_upload_url`."
+        },
+        {
+          "name": "ipa_build_url",
+          "in": "query",
+          "schema": {
+            "type": "string"
+          },
+          "description": "iOS build: a URL, or the `key` from `/test_plans/build_upload_url`."
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "execute"
+    },
+    {
+      "operationId": "triggerRunWithAppFile",
+      "method": "POST",
+      "path": "/test_plans/{id}/execution",
+      "permission": "TEST_PLAN_EXECUTE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "type": "object",
+        "required": [
+          "appFile"
+        ],
+        "properties": {
+          "appFile": {
+            "type": "string",
+            "format": "binary",
+            "description": ".apk or .ipa"
+          }
+        }
+      },
+      "contentType": "multipart/form-data",
+      "effect": "execute"
+    },
+    {
+      "operationId": "listTestStepResults",
+      "method": "GET",
+      "path": "/test_step_results",
+      "permission": "TEST_STEP_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getTestStepResult",
+      "method": "GET",
+      "path": "/test_step_results/{id}",
+      "permission": "TEST_STEP_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "listTestSteps",
+      "method": "GET",
+      "path": "/test_steps",
+      "permission": "TEST_STEPS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        },
+        {
+          "name": "includeStepGroups",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        {
+          "name": "includeStepGroupSteps",
+          "in": "query",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "createTestStep",
+      "method": "POST",
+      "path": "/test_steps",
+      "permission": "TEST_STEPS_WRITE",
+      "parameters": [],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestStepRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "getTestStep",
+      "method": "GET",
+      "path": "/test_steps/{id}",
+      "permission": "TEST_STEPS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "updateTestStep",
+      "method": "PUT",
+      "path": "/test_steps/{id}",
+      "permission": "TEST_STEPS_WRITE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestStepRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "listTestSuiteResults",
+      "method": "GET",
+      "path": "/test_suite_results",
+      "permission": "TEST_SUITE_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "getTestSuiteResult",
+      "method": "GET",
+      "path": "/test_suite_results/{id}",
+      "permission": "TEST_SUITE_RESULTS_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "listTestSuites",
+      "method": "GET",
+      "path": "/test_suites",
+      "permission": "TEST_SUITES_READ",
+      "parameters": [
+        {
+          "name": "query",
+          "in": "query",
+          "description": "Filter expression: comma-separated `field<op>value` terms, ANDed together.\n\nOperators: `:` equals, `!` not equals, `>` greater than, `<` less than, `~` like, `@` in, `;` not in. For `@` and `;`, separate values with `#` (`status@QUEUED#IN_PROGRESS`). With `:`, a leading and/or trailing `*` on the value means ends-with / starts-with / contains (`name:*login*`). Values cannot contain `,` or `*`.\n\nAccepted field names are the ones the resource's specification supports; unknown fields are ignored or rejected per resource.",
+          "schema": {
+            "type": "string"
+          },
+          "example": "testPlanResultId:123,iteration:null"
+        },
+        {
+          "name": "page",
+          "in": "query",
+          "description": "Zero-based page index.",
+          "schema": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        {
+          "name": "size",
+          "in": "query",
+          "description": "Page size.",
+          "schema": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "description": "Sort as `property,asc|desc`. Repeat for multiple keys.",
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "style": "form",
+          "explode": true,
+          "example": [
+            "id,desc"
+          ]
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "createTestSuite",
+      "method": "POST",
+      "path": "/test_suites",
+      "permission": "TEST_SUITES_WRITE",
+      "parameters": [],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestSuiteRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    },
+    {
+      "operationId": "getTestSuite",
+      "method": "GET",
+      "path": "/test_suites/{id}",
+      "permission": "TEST_SUITES_READ",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": null,
+      "contentType": null,
+      "effect": "read"
+    },
+    {
+      "operationId": "updateTestSuite",
+      "method": "PUT",
+      "path": "/test_suites/{id}",
+      "permission": "TEST_SUITES_WRITE",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      ],
+      "requestSchema": {
+        "$ref": "#/components/schemas/TestSuiteRequest"
+      },
+      "contentType": "application/json",
+      "effect": "write"
+    }
+  ],
+  "schemas": {
+    "TestCaseRequest": {
+      "type": "object",
+      "properties": {
+        "nullFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "isDataDriven": {
+          "type": "boolean"
+        },
+        "sendMailNotification": {
+          "type": "boolean"
+        },
+        "isStepGroup": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "reviewSubmittedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "draftAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "obsoleteAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "readyAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "DRAFT",
+            "IN_REVIEW",
+            "READY",
+            "OBSOLETE",
+            "REWORK",
+            "APPROVED",
+            "ADDED"
+          ]
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "testDataId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workspaceVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "preRequisite": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "prerequisiteTestCaseIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "copiedFrom": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deleted": {
+          "type": "boolean"
+        },
+        "testDataStartIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "testDataEndIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "priorityName": {
+          "type": "string"
+        },
+        "statusName": {
+          "type": "string"
+        },
+        "typeName": {
+          "type": "string"
+        },
+        "testDataName": {
+          "type": "string"
+        },
+        "preRequisiteName": {
+          "type": "string"
+        },
+        "assigneeName": {
+          "type": "string"
+        },
+        "order": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Attachment"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "mfiles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "binary"
+          }
+        },
+        "testSuiteId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testType": {
+          "type": "string",
+          "enum": [
+            "BROWSER",
+            "MOBILE",
+            "API_TESTCASE",
+            "CROSS_BROWSER"
+          ]
+        },
+        "jiraTicketId": {
+          "type": "string"
+        },
+        "adoWorkId": {
+          "type": "string"
+        },
+        "isExtensionUsed": {
+          "type": "boolean"
+        },
+        "testConfiguration": {
+          "description": "Arbitrary JSON value."
+        },
+        "testDataFunctionArgs": {
+          "description": "Arbitrary JSON value."
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/TestStepRequest"
+          }
+        },
+        "url": {
+          "type": "string"
+        },
+        "disableAutoWaitSteps": {
+          "type": "boolean"
+        },
+        "testcaseTimeout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "session": {
+          "description": "Arbitrary JSON value."
+        },
+        "missingData": {
+          "$ref": "#/components/schemas/TestCaseMissingData"
+        },
+        "dataGrouping": {
+          "description": "Arbitrary JSON value."
+        },
+        "moduleName": {
+          "type": "string"
+        },
+        "knowledgeId": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        },
+        "enableDeviceEmulation": {
+          "type": "boolean"
+        },
+        "defaultDeviceType": {
+          "type": "string"
+        },
+        "defaultOS": {
+          "type": "string"
+        },
+        "defaultBrowserViewPort": {
+          "type": "string"
+        },
+        "mockApiSettings": {
+          "description": "Arbitrary JSON value."
+        },
+        "folderId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "environmentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "viewportId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "proxyProfileId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remoteBrowserProfileId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "waitTimeoutLocators": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autoWaitDuration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "knowledgeBaseDefaultTestcaseId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mobileDeviceConfig": {
+          "type": "string"
+        },
+        "enableAISmartness": {
+          "type": "string",
+          "enum": [
+            "STRICT",
+            "SMART",
+            "FLEXIBLE",
+            "EXPERT",
+            "FAST"
+          ]
+        },
+        "videoRecording": {
+          "type": "boolean"
+        },
+        "useAIMetadata": {
+          "type": "boolean"
+        },
+        "defaultAIAction": {
+          "type": "string",
+          "enum": [
+            "ACTION",
+            "CREATE_STEPS",
+            "DYNAMIC_STEPS",
+            "CREATE_PARTIAL_STEPS"
+          ]
+        },
+        "defaultBrowser": {
+          "type": "string"
+        },
+        "captureAllStepScreenshots": {
+          "type": "boolean"
+        },
+        "autoApprovalLocator": {
+          "type": "boolean"
+        },
+        "autoApprovalLocatorScore": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "enableClickPressHold": {
+          "type": "boolean"
+        },
+        "retryFailedSteps": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Attachment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "entityId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "path": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "entity": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "importedId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "preSignedURL": {
+          "type": "string"
+        }
+      }
+    },
+    "TestStepRequest": {
+      "type": "object",
+      "properties": {
+        "nullFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "MAJOR",
+            "MINOR"
+          ]
+        },
+        "position": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "preRequisiteStepId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "action": {
+          "type": "string"
+        },
+        "testCaseId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stepGroupId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testData": {
+          "type": "string"
+        },
+        "testDataType": {
+          "type": "string"
+        },
+        "attribute": {
+          "type": "string"
+        },
+        "element": {
+          "type": "string"
+        },
+        "fromElement": {
+          "type": "string"
+        },
+        "toElement": {
+          "type": "string"
+        },
+        "forLoopStartIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "forLoopEndIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "forLoopTestDataId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testDataFunctionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testDataFunctionArgs": {
+          "description": "Arbitrary JSON value."
+        },
+        "elementId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "exceptedResult": {
+          "type": "string"
+        },
+        "naturalTextActionId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "NOT_USED",
+            "ACTION_TEXT",
+            "STEP_GROUP",
+            "REST_STEP",
+            "FOR_LOOP",
+            "WHILE_LOOP",
+            "BREAK_LOOP",
+            "CONTINUE_LOOP",
+            "NLP_TEXT",
+            "CUSTOM_FUNCTION",
+            "CONDITION_IF",
+            "CONDITION_ELSE",
+            "CONDITION_ELSE_IF",
+            "AI_ACTION"
+          ]
+        },
+        "waitTime": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "conditionType": {
+          "type": "string",
+          "enum": [
+            "NOT_USED",
+            "CONDITION_IF",
+            "CONDITION_IFNOT",
+            "CONDITION_ELSE_IF",
+            "CONDITION_ELSE_IFNOT",
+            "CONDITION_ELSE",
+            "LOOP_FOR",
+            "LOOP_WHILE"
+          ]
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "parentTempId": {
+          "type": "string"
+        },
+        "copiedFrom": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "restStep": {
+          "$ref": "#/components/schemas/RestStepDetailsRequest"
+        },
+        "testDataId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "phoneNumberId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "addonActionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "addonNaturalTextActionData": {
+          "$ref": "#/components/schemas/AddonNaturalTextActionData"
+        },
+        "addonTestData": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/AddonTestStepTestData"
+          }
+        },
+        "addonElements": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/AddonElementData"
+          }
+        },
+        "disabled": {
+          "type": "boolean"
+        },
+        "ignoreStepResult": {
+          "type": "boolean"
+        },
+        "visualEnabled": {
+          "type": "boolean"
+        },
+        "testDataProfileStepId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "addonTDF": {
+          "$ref": "#/components/schemas/AddonTestStepTestData"
+        },
+        "actionName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "specs": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "string"
+        },
+        "event": {
+          "description": "Arbitrary JSON value."
+        },
+        "goldenScreenshot": {
+          "type": "string"
+        },
+        "goldenHtmlCode": {
+          "type": "string"
+        },
+        "environmentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "domElementImageUrl": {
+          "type": "string"
+        },
+        "requestList": {
+          "description": "Arbitrary JSON value."
+        },
+        "testDataList": {
+          "type": "array",
+          "items": {},
+          "description": "Arbitrary JSON array."
+        },
+        "cache": {
+          "description": "Arbitrary JSON value."
+        },
+        "shouldSkip": {
+          "type": "boolean"
+        },
+        "conditionIf": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "FAILURE",
+              "ABORTED",
+              "NOT_EXECUTED",
+              "QUEUED",
+              "STOPPED",
+              "SKIPPED",
+              "IN_PROGRESS"
+            ]
+          }
+        }
+      }
+    },
+    "RestStepDetailsRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stepId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "url": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "PUT",
+            "HEAD",
+            "DELETE",
+            "PATCH",
+            "POST",
+            "OPTIONS"
+          ]
+        },
+        "requestHeaders": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Arbitrary JSON object."
+        },
+        "payload": {
+          "type": "string"
+        },
+        "expectedResultType": {
+          "type": "string"
+        },
+        "responseCompareType": {
+          "type": "string",
+          "enum": [
+            "STRICT",
+            "LENIENT",
+            "NON_EXTENSIBLE",
+            "STRICT_ORDER",
+            "JSON_PATH",
+            "JSON_SCHEMA"
+          ]
+        },
+        "responseHeaders": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Arbitrary JSON object."
+        },
+        "response": {
+          "type": "string"
+        },
+        "headerRuntimeData": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Arbitrary JSON object."
+        },
+        "bodyRuntimeData": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Arbitrary JSON object."
+        },
+        "followRedirects": {
+          "type": "boolean"
+        },
+        "authorizationType": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "BASIC",
+            "BEARER"
+          ]
+        },
+        "authorizationValue": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Arbitrary JSON object."
+        },
+        "storeMetadata": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "AddonNaturalTextActionData": {
+      "type": "object",
+      "properties": {
+        "elements": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/AddonElementData"
+          }
+        },
+        "testData": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/components/schemas/AddonTestStepTestData"
+          }
+        }
+      }
+    },
+    "AddonElementData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "AddonTestStepTestData": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "NOT_USED",
+            "raw",
+            "parameter",
+            "runtime",
+            "environment",
+            "random",
+            "function"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "testDataFunctionArguments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "testDataFunctionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isAddonFn": {
+          "type": "boolean"
+        }
+      }
+    },
+    "TestCaseMissingData": {
+      "type": "object",
+      "properties": {
+        "prerequisiteMissing": {
+          "type": "boolean"
+        },
+        "testDataMissing": {
+          "type": "boolean"
+        },
+        "assertionMissing": {
+          "type": "boolean"
+        },
+        "prerequisiteMissingContent": {
+          "type": "string"
+        },
+        "uploadRequirementId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TestPlanRequest": {
+      "type": "object",
+      "properties": {
+        "nullFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workspaceVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "elementTimeOut": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageTimeOut": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "environmentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "screenshot": {
+          "type": "string",
+          "enum": [
+            "ALL_TYPES",
+            "FAILED_STEPS",
+            "NONE"
+          ]
+        },
+        "recoveryAction": {
+          "type": "string",
+          "enum": [
+            "Run_Next_Testcase",
+            "Run_Next_Step"
+          ]
+        },
+        "onAbortedAction": {
+          "type": "string",
+          "enum": [
+            "Reuse_Session",
+            "Restart_Session"
+          ]
+        },
+        "onSuitePreRequisiteFail": {
+          "type": "string",
+          "enum": [
+            "Abort",
+            "Continue"
+          ]
+        },
+        "onStepPreRequisiteFail": {
+          "type": "string",
+          "enum": [
+            "Run_Next_Testcase",
+            "Run_Next_Step"
+          ]
+        },
+        "testPlanType": {
+          "type": "string",
+          "enum": [
+            "DISTRIBUTED",
+            "CROSS_BROWSER"
+          ]
+        },
+        "createdDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "matchBrowserVersion": {
+          "type": "boolean"
+        },
+        "enableClickPressHold": {
+          "type": "boolean"
+        },
+        "enableScrollbars": {
+          "type": "boolean"
+        },
+        "testDevices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/TestDeviceRequest"
+          }
+        },
+        "reRunType": {
+          "type": "string",
+          "enum": [
+            "NONE",
+            "ALL_TESTS",
+            "ONLY_FAILED_TESTS",
+            "ALL_ITERATIONS",
+            "ONLY_FAILED_ITERATIONS",
+            "ONLY_FAILED_ITERATIONS_IN_FAILED_TESTS"
+          ]
+        },
+        "retrySessionCreation": {
+          "type": "boolean"
+        },
+        "retrySessionCreationTimeout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parallelNode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sendNotification": {
+          "type": "boolean"
+        },
+        "hideInDashboard": {
+          "type": "boolean"
+        },
+        "defaultTestPlan": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "personaId": {
+          "type": "string"
+        },
+        "knowledgeId": {
+          "type": "string"
+        },
+        "forLoopTestDataId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "planVersionId": {
+          "type": "string"
+        },
+        "viewportId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "proxyProfileId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remoteBrowserProfileId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "onTestCasePreRequisiteFail": {
+          "type": "string",
+          "enum": [
+            "Abort",
+            "Continue"
+          ]
+        }
+      }
+    },
+    "TestDeviceRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "agentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "deviceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "platformOsVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "platformBrowserVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "platformScreenResolutionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "platformDeviceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "settings": {
+          "$ref": "#/components/schemas/TestDeviceSettings"
+        },
+        "browser": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "Generic",
+            "Windows",
+            "Mac",
+            "MACOSX",
+            "Linux",
+            "Android",
+            "iOS",
+            "Devices",
+            "Browser",
+            "MOBILE_APP"
+          ]
+        },
+        "browserVersion": {
+          "type": "string"
+        },
+        "udid": {
+          "type": "string"
+        },
+        "appUploadId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "appUploadVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "appPackage": {
+          "type": "string"
+        },
+        "appActivity": {
+          "type": "string"
+        },
+        "appUrl": {
+          "type": "string"
+        },
+        "appBundleId": {
+          "type": "string"
+        },
+        "appPathType": {
+          "type": "string",
+          "enum": [
+            "USE_PATH",
+            "APP_DETAILS",
+            "UPLOADS"
+          ]
+        },
+        "capabilities": {
+          "type": "string"
+        },
+        "envRunId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "disable": {
+          "type": "boolean"
+        },
+        "prerequisiteTestDevicesId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "prerequisiteTestDevicesIdIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workspaceVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testPlanLabType": {
+          "type": "string",
+          "enum": [
+            "ContextQALab",
+            "TestsigmaLab",
+            "Hybrid",
+            "PrivateGrid"
+          ]
+        },
+        "matchBrowserVersion": {
+          "type": "boolean"
+        },
+        "createSessionAtCaseLevel": {
+          "type": "boolean"
+        },
+        "suiteIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "planSuites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PlanSuiteDTO"
+          }
+        }
+      }
+    },
+    "TestDeviceSettings": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "osVersion": {
+          "type": "string"
+        },
+        "browser": {
+          "type": "string"
+        },
+        "browserVersion": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "Generic",
+            "Windows",
+            "Mac",
+            "MACOSX",
+            "Linux",
+            "Android",
+            "iOS",
+            "Devices",
+            "Browser",
+            "MOBILE_APP"
+          ]
+        },
+        "type": {
+          "type": "string"
+        },
+        "deviceName": {
+          "type": "string"
+        },
+        "appiumUrl": {
+          "type": "string"
+        },
+        "appPackage": {
+          "type": "string"
+        },
+        "appActivity": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "capabilities": {
+          "type": "string"
+        },
+        "appPathType": {
+          "type": "string",
+          "enum": [
+            "USE_PATH",
+            "APP_DETAILS",
+            "UPLOADS"
+          ]
+        },
+        "appUrl": {
+          "type": "string"
+        },
+        "executionName": {
+          "type": "string"
+        },
+        "environmentParamId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "password": {
+          "type": "string"
+        },
+        "runBy": {
+          "type": "string"
+        },
+        "tenant": {
+          "type": "string"
+        },
+        "envRunId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deviceId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isLatest": {
+          "type": "boolean"
+        },
+        "elementTimeout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageLoadTimeout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "executionRunId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deviceNameCapability": {
+          "type": "string"
+        },
+        "extendedDebugging": {
+          "type": "string"
+        },
+        "hybridBrowserDriverPath": {
+          "type": "string"
+        },
+        "skipServerInstallation": {
+          "type": "string"
+        },
+        "skipDeviceInitialization": {
+          "type": "string"
+        },
+        "chromedriverExecutableDir": {
+          "type": "string"
+        },
+        "nativeWebScreenshot": {
+          "type": "string"
+        },
+        "udid": {
+          "type": "string"
+        },
+        "testObjectApiKey": {
+          "type": "string"
+        },
+        "app_upload_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_name": {
+          "type": "string"
+        },
+        "native_test_object_key": {
+          "type": "string"
+        },
+        "create_session_at_case_level": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PlanSuiteDTO": {
+      "type": "object",
+      "properties": {
+        "planSuiteId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "suiteId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "executionMode": {
+          "type": "string"
+        },
+        "mixPriority": {
+          "type": "string"
+        },
+        "planTestCases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/PlanTestCaseDTO"
+          }
+        }
+      }
+    },
+    "PlanTestCaseDTO": {
+      "type": "object",
+      "properties": {
+        "planTestCaseId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "testCaseId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orderIndex": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skip": {
+          "type": "boolean"
+        },
+        "executionMode": {
+          "type": "string"
+        }
+      }
+    },
+    "TestSuiteRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "workspaceVersionId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "preRequisite": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "testCaseIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "defaultTestSuite": {
+          "type": "boolean"
+        },
+        "testType": {
+          "type": "string",
+          "enum": [
+            "BROWSER",
+            "MOBILE",
+            "API_TESTCASE",
+            "CROSS_BROWSER"
+          ]
+        },
+        "folderId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}

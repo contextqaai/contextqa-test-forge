@@ -1,0 +1,27 @@
+// Offline personalization example; no model/API/browser calls or notifications are sent.
+import {mkdir, writeFile} from 'node:fs/promises';
+import {builderFixture} from './builder-fixture.js';
+import {defaultProfile, validateProfile, recommendVersion} from '../src/profile.js';
+import {approve} from '../src/contracts.js';
+import {planSync, subscriptionWorkflow} from '../src/sync.js';
+import {renderBugReport, notificationIntent} from '../src/reports.js';
+const out = process.argv[2] ?? `output/personalized-${Date.now()}`;
+await mkdir(out, {mode: 0o700});
+const save = (name, value) => writeFile(`${out}/${name}`, typeof value === 'string' ? value : JSON.stringify(value, null, 2) + '\n', {flag: 'wx', mode: 0o600});
+const {source, before: contract} = builderFixture({pattern: 'page-object', indent: 4});
+const profile = structuredClone(defaultProfile);
+profile.builder = contract.builder; profile.codeStyle = contract.codeStyle;
+profile.repository.branchPrefix = 'expense-guardian/'; profile.repository.filePrefix = 'expense-';
+profile.notifications.channels = ['artifact', 'slack'];
+profile.notifications.include = ['summary', 'reproduction', 'expected', 'actual', 'evidence', 'owner'];
+validateProfile(profile);
+const approval = approve(contract, 'Scripted fictional example reviewer', source);
+const report = renderBugReport({summary: 'Synthetic expense approval defect', reproduction: ['Enter 1000 USD', 'Leave manager approval unchecked', 'Submit the expense'], expected: 'Manager approval required', actual: 'Approved in the intentionally defective fixture', source: {platform: 'github', id: '42', sha256: source.sourceSha}, run: {provider: 'synthetic-example-not-executed-here', id: 'example-run', assertionOutcome: 'not-observed-by-this-command'}, evidence: [], owner: profile.builder.ownerName}, {include: profile.notifications.include});
+const intent = notificationIntent({event: {id: 'synthetic-expense-example-failure', type: 'test.failed'}, profile, report});
+await save('profile.json', profile); await save('contract.json', contract); await save('approval.json', approval);
+await save('source.json', source); await save('sync-plan.json', await planSync({profile, source, contract, approval}));
+await save('bug-report.md', report.markdown); await save('bug-report.json', report.json); await save('notification-intents.json', intent);
+await save('next-version.json', recommendVersion(profile.builder.version, 'newTest', profile));
+await save('workflow.example.yml', subscriptionWorkflow(profile, {sourcePlatforms: ['contextqa']}));
+await save('README.md', '# Personalization example\n\nFictional agent owner, page objects with 4-space indentation, expense- branch/file prefixes, selected report fields and artifact/Slack delivery intents. The sync plan is local, the notification is not sent, and the workflow is not installed. Do not submit synthetic native IDs to ContextQA. Replace the repository/owner/inputs with authorized reviewed values before any real publication.\n');
+console.log(JSON.stringify({output: out, examplesPrepared: true, externalRequests: 0, notificationsSent: false, workflowInstalled: false}));

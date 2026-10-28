@@ -1,8 +1,8 @@
 {
   "name":"contextqa-test-forge", "version":"0.1.0", "private":true, "type":"module", "engines":{"node":">=22"},
-  "description":"Source-traceable test contracts and portable browser automation exports", "license":"UNLICENSED",
+  "description":"ContextQA API authoring, saved-plan execution and reviewed portable test exports", "license":"UNLICENSED",
   "bin":{"cqa-forge":"./src/cli.js"},
-  "scripts":{"test":"node --test test/*.test.js","demo":"node examples/demo.js","ai:draft":"node scripts/ai-draft.js"},
+  "scripts":{"test":"node --test test/*.test.js","demo":"node examples/demo.js","demo:contextqa":"node examples/contextqa-workflow.js","contextqa":"node scripts/contextqa.js","contextqa:workflow":"node scripts/contextqa-workflow.js","ai:draft":"node scripts/ai-draft.js"},
   "repository":{"type":"git","url":"https://github.com/contextqaai/contextqa-test-forge.git"},
   "homepage":"https://contextqa.com/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=package_homepage"
 }

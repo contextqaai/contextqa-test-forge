@@ -19,6 +19,7 @@ export function validate(contract) {
     if(!test.steps.some(s=>s.action?.startsWith('assert'))) throw new Error('Every test needs a real assertion');
     for(const step of test.steps) {
       if(!actions.has(step.action)) throw new Error('Unsupported action; arbitrary code is not accepted');
+      if(step.sourceStepIds!==undefined && (!Array.isArray(step.sourceStepIds) || !step.sourceStepIds.length || step.sourceStepIds.some(id=>typeof id!=='string' || !/^[1-9]\d*$/.test(id) || !Number.isSafeInteger(Number(id))))) throw new Error('Traceability sourceStepIds must be positive native step ID strings');
       if(step.action!=='navigate' && step.action!=='assertUrl' && (typeof step.selector!=='string' || !step.selector.trim() || step.selector.length>1000)) throw new Error('A reviewed CSS selector is required');
       if(['fill','select','assertText','assertUrl','navigate'].includes(step.action)) {
         if((typeof step.value!=='string') === (typeof step.env!=='string')) throw new Error('Provide exactly one literal value or environment reference');

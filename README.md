@@ -1,12 +1,24 @@
 # ContextQA Test Forge
 
-ContextQA Test Forge helps QA teams turn requirements from Jira, Linear, TestRail, Xray Cloud, GitHub Issues or a JSON export into reviewed, source-linked **Playwright, Selenium or WebdriverIO** projects. Keep the editable generated code in your own project. Optionally bring your own **OpenAI, Claude or OpenAI-compatible API key** to draft test cases.
+ContextQA Test Forge helps QA teams turn requirements from Jira, Linear, TestRail, Xray Cloud, GitHub Issues or JSON into reviewed automation using **ContextQA's API**. Reuse a configured ContextQA plan, author source-linked cases/steps/suites/plans with explicit review, execute only with approval, and retrieve bounded results; optionally export reviewed mappings as **Playwright, Selenium or WebdriverIO** code.
 
 Built under `contextqaai` for [ContextQA](https://contextqa.com/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_overview). This is a private, runnable first release. It is not a hosted service, marketplace-certified connector, universal natural-language-to-working-test guarantee or replacement for checking application behavior.
 
 **Release status:** private candidate; an open-source license and public release are pending owner approval. Core local samples make no model or ContextQA SaaS calls. Optional AI and hosted execution use separate credentials and may incur provider charges.
 
-## Run an end-to-end example
+## Start with the ContextQA workflow
+
+The [ContextQA workflow guide](docs/contextqa.md) covers API-token setup, reusable environment/data/prerequisite/browser settings, reviewed authoring, durable partial-write journals, saved-plan execution, result retrieval and complementary code exports. The bundled client catalogs all 40 operations from the supplied token API contract; its schema/transport tests are mocked, not live-account acceptance.
+
+```sh
+npm test
+node scripts/contextqa.js operations
+node examples/contextqa-workflow.js output/contextqa-new-sample
+```
+
+The account-free example uses a **mock ContextQA transport**: nine raw authoring operations, case/step reads and three explicit portable mappings. Every tenant ID is synthetic; do not send its bundle live. No API key, paid execution or model call occurs. For actual usage, obtain a scoped ContextQA token and use reviewed account configuration; authoring writes and potentially billed execution have separate approval gates. Environments/data/device discovery are not invented where the contract supplies no endpoints. BYOK OpenAI/Claude drafting is optional and independent.
+
+## Complementary local framework example
 
 Requires Node 22+. The core has no npm runtime dependencies and needs no source account or AI key.
 
@@ -35,7 +47,7 @@ For `github-selenium` or `github-webdriverio`, install Chrome, then `npm install
 3. Optionally use [your AI key](docs/ai.md) to draft requirements from content you explicitly approve sharing.
 4. Author a structured contract with verified CSS selectors, staging URLs, environment references and expected results. The demo contains a complete example.
 5. Review the source and contract, record approval, export and inspect the project.
-6. Run only in an authorized disposable test workspace. Retain runner logs and reports as execution evidence.
+6. Prefer the [ContextQA API workflow](docs/contextqa.md) with an approved existing plan and native settings; use portable exports when code ownership/framework integration is needed. Run only in an authorized disposable test workspace and retain actual result evidence.
 7. When the source or app changes, re-fetch, update selectors/expectations, compare contracts, reapprove and re-run.
 
 ```sh
@@ -54,6 +66,9 @@ Output files and directories must be new. Store real source, contracts, credenti
 
 | Capability | Current implementation |
 |---|---|
+| ContextQA primary API route | Fixed-origin client/catalog for 40 documented operations; request schemas, scopes/effects, explicit write/execute approval and bounded saved-plan polling. Mock-tested; live account and billing acceptance remain outstanding. |
+| Native reusable authoring | Source-bound raw case/step/suite/plan bundles; created-ID references, preflight validation and durable no-replay partial-write journal. Existing environment/data/prerequisite/browser/parallel settings remain explicit. |
+| ContextQA → portable code | Explicit case/step reads with parent checks, then manually reviewed selector/action mapping covering selected source step IDs. No automatic NLP/element-ID conversion. |
 | Jira Cloud, Linear, TestRail, Xray Cloud, GitHub Issues | Single-item read adapters; fixture/transport tested. Real tenant credentials not tested here. |
 | Other platforms | Map their export into the canonical JSON source shape; no universal live connector claim. |
 | AI | Optional local drafting with OpenAI Responses, Anthropic Messages or compatible Chat Completions; mock-tested, not live-billed. |
@@ -67,7 +82,7 @@ Supported steps: navigate, click, fill, native-select by value, checkbox check, 
 
 Read [installation and real testing](docs/real-testing.md), [contract schema and lifecycle](docs/contracts.md), [source APIs and keys](docs/sources.md), [AI configuration](docs/ai.md), [use cases and comparisons](docs/use-cases.md), [metrics](docs/metrics.md), [security](SECURITY.md), and [contributing](CONTRIBUTING.md).
 
-Related ContextQA reading: [recording browser workflows](https://contextqa.com/tutorials/no-code-test-automation-recorder/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_recorder) and [reviewing visual baselines](https://contextqa.com/blog/visual-regression-testing-ui-stability/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_visual_blog). Related repos: [browser sessions and evidence](https://github.com/contextqaai/contextqa-browser-cloud), [documentation evidence handoffs](https://github.com/contextqaai/contextqa-docs-evidence). This repo does not require either service or expose a ContextQA SaaS endpoint.
+Related ContextQA reading: [recording browser workflows](https://contextqa.com/tutorials/no-code-test-automation-recorder/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_recorder) and [reviewing visual baselines](https://contextqa.com/blog/visual-regression-testing-ui-stability/?utm_source=github&utm_medium=developer_referral&utm_campaign=contextqa_test_forge&utm_content=readme_visual_blog). Related repos: [browser sessions and evidence](https://github.com/contextqaai/contextqa-browser-cloud), [documentation evidence handoffs](https://github.com/contextqaai/contextqa-docs-evidence). This repo calls the existing ContextQA cloud API; it does not deploy a new hosted endpoint.
 
 ## Product strategy and release plan
 

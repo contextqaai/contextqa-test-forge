@@ -13,6 +13,7 @@ jobs:
           node-version: 22
       - run: npm test
       - run: node examples/demo.js output/ci
+      - run: node examples/contextqa-workflow.js output/contextqa-ci
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 5

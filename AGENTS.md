@@ -1,9 +1,11 @@
 # Agent instructions — contextqa-test-forge
 
-Keep ContextQA primary. Read README.md, docs/capability-register.md and docs/backlog.md before claims or new live integrations. Primary QA/manual-backlog entry point. Current code produces portable local tests; hosted ContextQA execution is a gated adapter backlog, not an implemented path.
+Keep ContextQA primary. Read README.md, docs/contextqa.md, docs/capability-register.md and docs/backlog.md before claims or live integrations. Primary route uses the existing ContextQA token API: reviewed raw authoring, reusable native plan settings, journaled saved-plan execution and bounded result retrieval. The adapter is mock-tested; live tenant/billing acceptance remains pending. Portable local frameworks are complementary, not a replacement for the API route.
 
 ## Setup, local sample and relevant checks
 Use Node 22+. `npm test` checks fixture normalization, provider transports, approval and exports. `node examples/demo.js output/NEW_RUN` imports six synthetic sources and exports 18 projects without any source/model key. Inspect metrics.json and generated tests. Export is not execution. Approvals require `--source` and unchanged source/contract hashes. Real source reads need explicit trusted configuration and environment keys. Generated browser projects run only when deliberately installed/executed; review targets and side effects first.
+
+`node examples/contextqa-workflow.js output/NEW_RUN` uses only mocked ContextQA transport and synthetic tenant IDs. `scripts/contextqa.js operations` needs no token. Other shared CLI commands can call the real API; scripts/contextqa-workflow.js approve/preview are offline, apply-bundle/read-case are live with environment credentials. Do not submit synthetic bundles live. Validate all raw DTO fields and account-specific IDs; preserve environments, data profiles, prerequisites, suites, browser matrix and parallel/rerun settings from existing reviewed ContextQA configuration. No unsupported discovery/provisioning endpoint may be invented. Never replay an existing authoring/execution journal or automatically retry ambiguous writes/starts. No selector or assertion inference from native NLP/action/element IDs.
 
 ## Data, AI, results and live operations
 

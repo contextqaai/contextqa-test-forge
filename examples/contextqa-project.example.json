@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "name": "synthetic-staging-cross-browser-data-driven",
+  "plan": {
+    "id": 301,
+    "expect": {
+      "workspaceVersionId": 101,
+      "environmentId": 201,
+      "testPlanType": "CROSS_BROWSER",
+      "parallelNode": 2,
+      "screenshot": "ALL_TYPES",
+      "reRunType": "NONE",
+      "onSuitePreRequisiteFail": "Abort",
+      "testDevices": [
+        {
+          "browser": "chrome",
+          "platform": "Linux",
+          "planSuites": [
+            {
+              "suiteId": 401,
+              "orderIndex": 0
+            }
+          ]
+        },
+        {
+          "browser": "firefox",
+          "platform": "Linux",
+          "planSuites": [
+            {
+              "suiteId": 401,
+              "orderIndex": 0
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cases": [
+    {
+      "id": 501,
+      "expect": {
+        "workspaceVersionId": 101,
+        "environmentId": 201,
+        "isDataDriven": true,
+        "testDataId": 601,
+        "captureAllStepScreenshots": true,
+        "videoRecording": true,
+        "prerequisiteTestCaseIds": [
+          500
+        ]
+      }
+    }
+  ],
+  "suites": [
+    {
+      "id": 401,
+      "expect": {
+        "workspaceVersionId": 101,
+        "preRequisite": 400,
+        "testCasesDto": [
+          {
+            "id": 501
+          }
+        ]
+      }
+    }
+  ],
+  "steps": [
+    {
+      "id": 701,
+      "expect": {
+        "testCaseId": 501,
+        "preRequisiteStepId": 700,
+        "testDataId": 601
+      }
+    }
+  ],
+  "execution": {
+    "query": {},
+    "maxPolls": 30,
+    "intervalMs": 2000
+  }
+}

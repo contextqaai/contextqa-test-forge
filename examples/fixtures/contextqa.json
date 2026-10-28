@@ -1,0 +1,6 @@
+{
+  "case": {"id": 101, "name": "Synthetic preference check", "description": "Mock API response only; no live execution", "workspaceVersionId": 42, "updatedDate": "2026-10-27T00:00:00Z"},
+  "steps": [
+    {"id": 701, "testCaseId": 101, "position": 1, "description": "Save preferences and check confirmation", "action": "Save preferences", "type": "AI_ACTION", "exceptedResult": "Saved"}
+  ]
+}

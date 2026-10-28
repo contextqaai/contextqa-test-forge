@@ -44,7 +44,7 @@ export async function exportProject(contract,receipt,framework,out) {
   const files={
     'package.json':JSON.stringify({name:`exported-${framework}-tests`,private:true,type:'module',engines:{node:'>=22'},scripts:{test:playwright?'playwright test':'node --test tests.spec.js'},devDependencies:dependency},null,2)+'\n',
     'tests.spec.js':source,
-    'traceability.json':JSON.stringify({schema:1,framework,sourceSha:contract.sourceSha,sourceLocator:receipt.sourceLocator || null,contractSha:sha(contract),review:receipt,tests:contract.tests.map(t=>({id:t.id,title:t.title})),executed:false},null,2)+'\n',
+    'traceability.json':JSON.stringify({schema:1,framework,sourceSha:contract.sourceSha,sourceLocator:receipt.sourceLocator || null,contractSha:sha(contract),review:receipt,tests:contract.tests.map(t=>({id:t.id,title:t.title,sourceSteps:t.steps.flatMap((step,index)=>step.sourceStepIds?[{stepIndex:index+1,sourceStepIds:step.sourceStepIds}]:[])})),executed:false},null,2)+'\n',
     '.gitignore':'node_modules/\n.env\ntest-results/\nplaywright-report/\n',
     '.env.example':[...new Set(contract.tests.flatMap(t=>t.steps.filter(s=>s.env).map(s=>s.env)))].map(x=>`${x}=`).join('\n')+'\n',
     'README.md':`# ${framework} export\n\nReviewed source contract: ${contract.sourceSha}\n\nInstall with npm install. ${playwright?'Install Chromium with npx playwright install chromium.':'Install Chrome; the framework manages its matching driver.'} Set required environment variables in your shell; .env is not auto-loaded. Read tests.spec.js and verify target access, selectors and side effects before npm test. Run in a disposable non-production workspace.\n\nGeneration is not an execution pass. Traceability contains local review provenance, not third-party certification.\n`

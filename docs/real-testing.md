@@ -1,6 +1,6 @@
 # Install, run and verify real tests
 
-The repository has been tested at several levels. A local generation result, an actual browser assertion and an authenticated production integration are separate evidence. The portable tests run on your own browser infrastructure; Test Forge does not currently execute them through ContextQA's hosted API.
+The repository has been tested at several levels. A local generation result, an actual browser assertion and an authenticated production integration are separate evidence. The primary [ContextQA API workflow](contextqa.md) now implements reviewed authoring, saved-plan execution and result retrieval; its acceptance checks use mocked API transport, not a live tenant. Complementary portable tests run on your own browser infrastructure and are not relabeled as ContextQA executions.
 
 ## What has actually passed
 
@@ -95,7 +95,7 @@ Inspect the source ID, locator, content and hash. Author a contract using that `
 
 Source adapters are read-only, but generated browser actions run with the workstation's normal network access and can change the target app. Use a disposable staging account and obtain the application owner's authorization for actions and any third-party costs. Unsupported selectors/widgets/actions require a reviewed implementation change; never silently skip them.
 
-A `CONTEXTQA_API_TOKEN` is **not used by this repository's portable export path**. ContextQA saved-plan execution/result APIs and the separate Docs Evidence collector require their own scopes and validation; this CI did not test them. Do not add a billed execution call to the quickstart.
+A `CONTEXTQA_API_TOKEN` is **not used by this repository's portable export path**. The primary ContextQA route now uses that environment token through `scripts/contextqa.js` and `scripts/contextqa-workflow.js`; see [API authoring/execution](contextqa.md) and [reusable saved project settings](contextqa-platform.md). Its client/catalog/profile/authoring tests use mocked transports. The no-key `node examples/contextqa-workflow.js output/NEW_RUN` covers nine authoring operations, explicit case/step reads and manual portable mapping. It performs no live API call or paid execution. Validate actual configuration with `project-check`, then separately authorize a bounded `project-run` before claiming a live ContextQA acceptance pass. Do not add a billed execution call to ordinary CI.
 
 ## Optional live AI acceptance
 

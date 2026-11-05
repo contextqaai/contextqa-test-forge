@@ -4,6 +4,8 @@ For **SDETs building their own QA agents**: turn reviewed requirements into Cont
 
 [ContextQA setup](docs/tokens.md) · [Customize your agent](docs/customization.md) · [Technical guide](docs/POWERFUL.md) · [Real testing](docs/real-testing.md)
 
+**Build on ContextQA:** bring your business rules, priorities and review policy; reuse native capabilities. [See it → try it → build it → own it](docs/agent-builder/README.md) with agent recipes, the 54-capability map and a practical human review loop.
+
 ## Who does what?
 
 | Role | Responsibility in this repo |

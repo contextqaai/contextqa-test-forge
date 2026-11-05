@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "mode": "synthetic",
+  "title": "Expense workspace regression",
+  "runId": "SAMPLE-RUN-008",
+  "environment": "Fictional staging",
+  "releaseDecision": {"status": "pending", "owner": "Example QA lead", "reason": "Review the remaining business-rule failure before any release decision."},
+  "cases": [
+    {"id":"S-01","title":"Sign in","area":"Access","initial":"passed","final":"passed","category":"none","owner":"QA","recovery":null,"evidence":["sample-result-01"]},
+    {"id":"S-02","title":"Create expense","area":"Expenses","initial":"passed","final":"passed","category":"none","owner":"QA","recovery":null,"evidence":["sample-result-02"]},
+    {"id":"S-03","title":"Attach receipt","area":"Expenses","initial":"passed","final":"passed","category":"none","owner":"QA","recovery":null,"evidence":["sample-result-03"]},
+    {"id":"S-04","title":"Search expenses","area":"Search","initial":"passed","final":"passed","category":"none","owner":"QA","recovery":null,"evidence":["sample-result-04"]},
+    {"id":"S-05","title":"Sign out","area":"Access","initial":"passed","final":"passed","category":"none","owner":"QA","recovery":null,"evidence":["sample-result-05"]},
+    {"id":"S-06","title":"Submit expense after button rename","area":"Expenses","initial":"failed","final":"passed","category":"Locator change","owner":"Automation engineer","recovery":{"kind":"reviewed-fix","applied":true,"revalidated":true,"evidence":["sample-repair-06","sample-rerun-06"]},"evidence":["sample-initial-06","sample-final-06"]},
+    {"id":"S-07","title":"Load expense list","area":"Expenses","initial":"failed","final":"passed","category":"Transient environment issue","owner":"DevOps","recovery":{"kind":"rerun","applied":false,"revalidated":true,"evidence":["sample-rerun-07"]},"evidence":["sample-initial-07","sample-final-07"]},
+    {"id":"S-08","title":"Require approval above the policy limit","area":"Approvals","initial":"failed","final":"failed","category":"Application defect","owner":"Application team","recovery":null,"evidence":["sample-initial-08","sample-final-08"]}
+  ],
+  "history": [],
+  "nextActions": ["Review the approval-policy defect with the product owner.", "Preserve the original business assertion when proposing a change.", "Rerun the corrected workflow only after scope and execution approval."]
+}

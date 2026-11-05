@@ -6,7 +6,7 @@ This guide contains the detailed operating procedures, capability boundaries and
 
 ## Technical navigation
 
-[Roles and human review](#roles-and-human-review) · [Make the agent yours](#make-the-agent-yours) · [Start with the ContextQA workflow](#start-with-the-contextqa-workflow) · [Complementary local framework example](#complementary-local-framework-example) · [Your real workflow](#your-real-workflow) · [What works, and what remains manual](#what-works-and-what-remains-manual) · [Product strategy and release plan](#product-strategy-and-release-plan) · [Install and test for real](#install-and-test-for-real)
+[Custom-agent builder hub](agent-builder/README.md) · [Roles and human review](#roles-and-human-review) · [Make the agent yours](#make-the-agent-yours) · [Start with the ContextQA workflow](#start-with-the-contextqa-workflow) · [Complementary local framework example](#complementary-local-framework-example) · [Your real workflow](#your-real-workflow) · [What works, and what remains manual](#what-works-and-what-remains-manual) · [Product strategy and release plan](#product-strategy-and-release-plan) · [Install and test for real](#install-and-test-for-real)
 
 ## Roles and human review
 

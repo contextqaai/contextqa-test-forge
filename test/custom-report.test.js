@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {analyze,render} from '../examples/custom-report/render.mjs';
+const fixture=()=>JSON.parse(readFileSync(new URL('../examples/custom-report/sample-results.json',import.meta.url),'utf8'));
+const profile=JSON.parse(readFileSync(new URL('../examples/custom-report/qa.json',import.meta.url),'utf8'));
+test('keeps initial failures and recovery distinct',()=>{const m=analyze(fixture());assert.equal(m.initialPassed,5);assert.equal(m.finalPassed,7);assert.equal(m.recovered,2);assert.equal(m.failed,1);assert.equal(m.finalRate,'87.5%');});
+test('unknown outcome remains in the denominator and cannot become a pass',()=>{const d=fixture();d.cases[0].final='inconclusive';const m=analyze(d);assert.equal(m.total,8);assert.equal(m.finalPassed,6);assert.equal(m.inconclusive,1);assert.equal(m.finalRate,'75.0%');});
+test('rejects unsupported repair claims and duplicate case IDs',()=>{const d=fixture();d.cases[5].recovery.revalidated=false;assert.throws(()=>analyze(d),/revalidation/);const e=fixture();e.cases[1].id=e.cases[0].id;assert.throws(()=>analyze(e),/Duplicate/);});
+test('escapes input markup and rejects CSS injection',()=>{const d=fixture();d.title='<script>alert(1)</script>';assert.ok(!render(d,profile).html.includes('<script>'));assert.throws(()=>render(d,{...profile,accent:'red;display:none'}),/accent/);});
+test('missing history is explicit and a profile cannot hide unknowns or decision',()=>{const d=fixture();d.cases[0].final='not-run';const result=render(d,{...profile,sections:['actions']});assert.match(result.markdown,/not run: 1/);assert.match(result.markdown,/PENDING/);assert.match(render(d,profile).markdown,/No history supplied/);});
+test('requires evidence for final observed outcomes and an owner for a release decision',()=>{const d=fixture();d.cases[0].evidence=[];assert.throws(()=>analyze(d),/evidence references/);const e=fixture();e.releaseDecision.status='go';e.releaseDecision.owner=null;assert.throws(()=>analyze(e),/owner/);});

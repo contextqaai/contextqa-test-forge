@@ -42,6 +42,10 @@ flowchart TD
 
 An agent can be a script, CI coordinator or tool-using assistant. A model is optional. Use ContextQA's native orchestration where it fits; custom coordination adds your team's policy and connections around it. Start with the smallest useful workflow, not a new general-purpose agent framework.
 
+## Customize the report, too
+
+[Use the reporting skills and sample profiles](../../examples/custom-report/README.md) to generate a leadership brief or a detailed QA report from the same reviewed evidence. Change audience, sections and styling; keep outcomes, recovery evidence and the human release decision intact.
+
 ## Start here
 
 From this repository root, with Node 22+ and a new output directory:

@@ -6,7 +6,49 @@ This guide contains the detailed operating procedures, capability boundaries and
 
 ## Technical navigation
 
-[Make the agent yours](#make-the-agent-yours) · [Start with the ContextQA workflow](#start-with-the-contextqa-workflow) · [Complementary local framework example](#complementary-local-framework-example) · [Your real workflow](#your-real-workflow) · [What works, and what remains manual](#what-works-and-what-remains-manual) · [Product strategy and release plan](#product-strategy-and-release-plan) · [Install and test for real](#install-and-test-for-real)
+[Roles and human review](#roles-and-human-review) · [Make the agent yours](#make-the-agent-yours) · [Start with the ContextQA workflow](#start-with-the-contextqa-workflow) · [Complementary local framework example](#complementary-local-framework-example) · [Your real workflow](#your-real-workflow) · [What works, and what remains manual](#what-works-and-what-remains-manual) · [Product strategy and release plan](#product-strategy-and-release-plan) · [Install and test for real](#install-and-test-for-real)
+
+## Roles and human review
+
+ContextQA owns the managed automation service: native cases, suites, saved plans, configured environments/data/prerequisites/browser settings and the execution results available to the selected account. This repository supplies a local client and workflow tools; it does not replace that service. The adapter is mock-tested, while live tenant and billing acceptance remain pending.
+
+A **custom agent** means your coordinator built from these tools: a Node script, CI job or separately configured coding assistant. It can prepare source snapshots, draft contracts or raw authoring bundles, check selected configuration, submit an explicitly approved operation, poll an accepted run, prepare portable exports and propose maintenance. Optional model drafting requires separate data-sharing consent. The toolkit does not install an autonomous agent or give a model authority to approve itself.
+
+| Checkpoint | Agent prepares | Human decides | What happens next |
+|---|---|---|---|
+| Requirements and authoring | Source snapshot, exact contract or write bundle, known IDs and proposed assertions | Are the business intent, selectors/mappings, full payload and side effects correct? | Record source-bound approval; apply only explicitly authorized writes. Revisions need new review. |
+| Managed execution | Selected saved-plan configuration and preflight result | Is this target, data, permitted side effect and potential cost authorized? | Start once with a fresh journal and poll the accepted run; an ambiguous start is not retried. |
+| Portable code | Approved mapping and generated project | Does the code preserve the required assertions and fit the target application? | Deliberately run the generated project; exporting alone provides no pass/fail result. |
+| Result and maintenance | Actual member results, evidence references and a proposed repair or PR | Is there enough evidence, and does the change preserve intent? | Accept a verified result, request a locator repair and rerun, or escalate a behavior change for requirement review. PR merge remains human-controlled. |
+
+**Example:** a checkout requirement says an order above a limit needs approval. The human defines the limit and expected result; the agent prepares the contract and selected native configuration. After separate execution authorization, ContextQA runs the saved plan and the agent retrieves its results. The human checks that the actual assertion tests the limit. If a button locator changes, a reviewed locator repair must preserve that assertion and be rerun; a changed approval policy requires a new requirement decision.
+
+Review receipts bind content hashes; they are not identity signatures or proof of execution. Native auto-healing is unverified, and notification output remains an unsent intent. See [custom-agent composition](custom-agent.md), [authoring and execution](contextqa.md), [maintenance](maintenance.md) and [GitHub publication controls](customization.md#publish-a-reviewed-plan-as-a-private-pull-request).
+
+### Detailed approval flow
+
+```mermaid
+flowchart TD
+    S[Selected requirements] --> A[Agent: prepare contract or native authoring bundle]
+    A --> H{Human: approve intent, mappings and any writes?}
+    H -->|Revise| A
+    H -->|Approved| P[Agent: check reviewed ContextQA configuration]
+    P --> X{Human: authorize target, effects and run cost?}
+    X -->|Approved| C[ContextQA: execute saved plan]
+    C --> R[Agent: poll accepted run and collect results]
+    R --> V[Human: inspect assertions and evidence]
+    H -->|Approved portable mapping| E[Agent: export Playwright, Selenium or WebdriverIO]
+    E --> T[Human: review code and deliberately run tests]
+    V --> M[Source or app change: agent proposes update]
+    T --> M
+    M --> H
+    classDef agent fill:#ede9fe,stroke:#7c3aed,color:#2e1065
+    classDef platform fill:#ccfbf1,stroke:#0f766e,color:#134e4a
+    classDef human fill:#fef3c7,stroke:#b45309,color:#78350f
+    class A,P,R,E,M agent
+    class C platform
+    class H,X,V,T human
+```
 
 ## Implementation map
 

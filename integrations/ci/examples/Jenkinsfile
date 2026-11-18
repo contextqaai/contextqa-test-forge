@@ -1,0 +1,15 @@
+// Add after a trusted deployment and immutable toolkit checkout; Node 22+ required.
+stage('ContextQA gate') {
+  timeout(time: 15, unit: 'MINUTES') {
+    withCredentials([string(credentialsId: 'contextqa-api-token', variable: 'CONTEXTQA_API_TOKEN')]) {
+      withEnv(['CONTEXTQA_PROFILE_FILE=private/project.json', 'CONTEXTQA_CONTEXT_FILE=private/context.json',
+               'CONTEXTQA_OUTPUT_DIR=contextqa-private-run', 'CONTEXTQA_APPROVE_EXECUTION=true']) {
+        try {
+          sh 'node "$CQA_TOOLKIT/scripts/ci-gate.js"'
+        } finally {
+          junit testResults: 'contextqa-private-run/junit.xml', allowEmptyResults: false
+        }
+      }
+    }
+  }
+}

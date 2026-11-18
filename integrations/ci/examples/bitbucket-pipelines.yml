@@ -1,0 +1,14 @@
+# Add after deployment and pinned toolkit checkout; provide protected variables and config files.
+image: node:22-bookworm-slim
+pipelines:
+  custom:
+    contextqa-approved-gate:
+      - step:
+          name: ContextQA gate
+          max-time: 15
+          script:
+            - export CONTEXTQA_PROFILE_FILE=private/project.json
+            - export CONTEXTQA_CONTEXT_FILE=private/context.json
+            - export CONTEXTQA_OUTPUT_DIR=contextqa-private-run
+            - export CONTEXTQA_APPROVE_EXECUTION=true
+            - node "$CQA_TOOLKIT/scripts/ci-gate.js"

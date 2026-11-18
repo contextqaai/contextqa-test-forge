@@ -1,0 +1,29 @@
+version: 2.1
+description: Candidate ContextQA reviewed-plan execution gate; requires Node 22+ and pinned toolkit checkout.
+display:
+  home_url: https://contextqa.com/
+  source_url: https://github.com/contextqaai/contextqa-test-forge
+commands:
+  run:
+    description: Execute an authorized saved plan using protected CONTEXTQA_API_TOKEN and reviewed configuration.
+    parameters:
+      toolkit-directory:
+        type: string
+      profile-file:
+        type: string
+      context-file:
+        type: string
+      output-directory:
+        type: string
+        default: contextqa-private-run
+    steps:
+      - run:
+          name: ContextQA reviewed plan gate
+          no_output_timeout: 15m
+          environment:
+            CQA_TOOLKIT: << parameters.toolkit-directory >>
+            CONTEXTQA_PROFILE_FILE: << parameters.profile-file >>
+            CONTEXTQA_CONTEXT_FILE: << parameters.context-file >>
+            CONTEXTQA_OUTPUT_DIR: << parameters.output-directory >>
+            CONTEXTQA_APPROVE_EXECUTION: 'true'
+          command: node "$CQA_TOOLKIT/scripts/ci-gate.js"

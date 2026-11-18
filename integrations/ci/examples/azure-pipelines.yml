@@ -1,0 +1,22 @@
+# Steps after trusted deployment and immutable toolkit checkout; CQA_TOOLKIT is its path.
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: 22.x
+  - script: node "$CQA_TOOLKIT/scripts/ci-gate.js"
+    displayName: ContextQA gate
+    timeoutInMinutes: 15
+    env:
+      CQA_TOOLKIT: $(CQA_TOOLKIT)
+      CONTEXTQA_API_TOKEN: $(CONTEXTQA_API_TOKEN)
+      CONTEXTQA_PROFILE_FILE: private/project.json
+      CONTEXTQA_CONTEXT_FILE: private/context.json
+      CONTEXTQA_OUTPUT_DIR: contextqa-private-run
+      CONTEXTQA_APPROVE_EXECUTION: 'true'
+  - task: PublishTestResults@2
+    condition: always()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: contextqa-private-run/junit.xml
+      failTaskOnFailedTests: true
+      failTaskOnMissingResultsFile: true

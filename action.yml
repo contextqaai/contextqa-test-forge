@@ -1,0 +1,30 @@
+name: ContextQA Reviewed Plan Gate
+description: Execute a reviewed ContextQA plan with pipeline-attested build context and a blocking result gate.
+author: ContextQA
+branding:
+  icon: check-circle
+  color: purple
+inputs:
+  token:
+    description: Scoped ContextQA API token supplied from protected CI secrets
+    required: true
+  profile-file:
+    description: Path to reviewed ContextQA saved-project JSON
+    required: true
+  context-file:
+    description: Path to trusted deployment context JSON
+    required: true
+  output-directory:
+    description: New private directory for receipt and intent journal; must not exist
+    required: true
+  approve-execution:
+    description: Set true only under the repository's approved target and execution policy
+    default: 'false'
+outputs:
+  verdict:
+    description: passed, failed, or inconclusive
+  run-id:
+    description: Accepted ContextQA run ID when available
+runs:
+  using: node24
+  main: scripts/ci-action.js

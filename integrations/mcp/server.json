@@ -1,0 +1,9 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.contextqaai/contextqa",
+  "title": "ContextQA MCP",
+  "description": "Create, run and debug application tests with ContextQA. Account and OAuth sign-in required.",
+  "version": "1.0.0",
+  "websiteUrl": "https://mcp.contextqa.com/docs",
+  "remotes": [{"type": "streamable-http", "url": "https://mcp.contextqa.com/mcp"}]
+}

@@ -1,0 +1,51 @@
+name: Publish ContextQA hosted MCP metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/mcp-registry-publication]
+    paths: [integrations/mcp/server.json]
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: github.repository == 'contextqaai/contextqa-test-forge'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      MCP_PUBLISHER_VERSION: v1.8.1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify advertised service version
+        run: |
+          curl --fail --silent --show-error --max-time 20 https://mcp.contextqa.com/health > /tmp/cqa-health.json
+          python3 - <<'PY'
+          import json
+          health = json.load(open('/tmp/cqa-health.json'))
+          metadata = json.load(open('integrations/mcp/server.json'))
+          assert health['status'] == 'healthy'
+          assert health['service'] == 'contextqa-mcp'
+          assert health['version'] == metadata['version']
+          assert metadata['name'] == 'io.github.contextqaai/contextqa'
+          PY
+      - uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6
+      - name: Install verified publisher
+        working-directory: integrations/mcp
+        run: |
+          set -euo pipefail
+          archive=mcp-publisher_linux_amd64.tar.gz
+          base="https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}"
+          curl --fail --location --silent --show-error --output "$archive" "$base/$archive"
+          curl --fail --location --silent --show-error --output "$archive.sigstore.json" "$base/$archive.sigstore.json"
+          cosign verify-blob --bundle "$archive.sigstore.json" --certificate-identity "https://github.com/modelcontextprotocol/registry/.github/workflows/release.yml@refs/tags/${MCP_PUBLISHER_VERSION}" --certificate-oidc-issuer https://token.actions.githubusercontent.com "$archive"
+          tar xzf "$archive" mcp-publisher
+          ./mcp-publisher validate
+      - name: Publish remote server metadata using organization identity
+        working-directory: integrations/mcp
+        run: |
+          ./mcp-publisher login github-oidc
+          ./mcp-publisher publish

@@ -1,0 +1,34 @@
+spec:
+  inputs:
+    stage:
+      default: test
+    toolkit-directory:
+      description: Previously checked-out immutable toolkit path
+    profile-file:
+      description: Reviewed saved-plan profile
+    context-file:
+      description: Trusted deployment context JSON
+    output-directory:
+      default: contextqa-private-run
+---
+contextqa-gate:
+  stage: $[[ inputs.stage ]]
+  image: node:22-bookworm-slim
+  variables:
+    CQA_TOOLKIT: $[[ inputs.toolkit-directory ]]
+    CONTEXTQA_PROFILE_FILE: $[[ inputs.profile-file ]]
+    CONTEXTQA_CONTEXT_FILE: $[[ inputs.context-file ]]
+    CONTEXTQA_OUTPUT_DIR: $[[ inputs.output-directory ]]
+    CONTEXTQA_APPROVE_EXECUTION: 'true'
+  script:
+    - node "$CQA_TOOLKIT/scripts/ci-gate.js"
+  retry: 0
+  timeout: 15m
+  artifacts:
+    when: always
+    expire_in: 1 day
+    access: maintainer
+    paths:
+      - $[[ inputs.output-directory ]]/
+    reports:
+      junit: $[[ inputs.output-directory ]]/junit.xml
